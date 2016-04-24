@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 
 namespace Education.Models
 {
@@ -16,8 +17,15 @@ namespace Education.Models
             // 在此处添加自定义用户声明
             return userIdentity;
         }
+        public string TrueName { get; set; }
+        public Gender Gender { get; set; }
+        public DateTime? RegisterOn { get; set; }
     }
-
+    public enum Gender
+    {
+        Male,
+        Female
+    }
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()

@@ -1,6 +1,7 @@
 ﻿using Education.Abstract;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
@@ -10,12 +11,19 @@ namespace Education.Models
     public class Paper : IEntity
     {
         public Guid Id { get; set; }
+        public DateTime? EditOn { get; set; }
+
         [ForeignKey("Teacher")]
         public string TeacherId { get; set; }
         public virtual Teacher Teacher { get; set; }
+
+        public virtual Exam Exam { get; set; }
+
         public virtual List<Question> Questions { get; set; }
+
         public Paper()
         {
+            Exam = new Exam();
             Teacher = new Teacher();
             Questions = new List<Question>();
         }
@@ -30,21 +38,24 @@ namespace Education.Models
         [ForeignKey("Paper")]
         public Guid PaperId { get; set; }
         public virtual Paper Paper { get; set; }
+        
+        public virtual List<Answer> Answers { get; set; }
 
         public Question()
         {
             Paper = new Paper();
+            Answers = new List<Answer>();
         }
     }
     public class TrueOrFalseQuestion : Question
     {
-        [Column("TruseOrFalseAnswer")]
+        [Column("TruseOrFalseCorrectAnswer")]
         public bool? IsCorrect { get; set; }
 
     }
     public class SingleQuestion : Question
     {
-        [Column("SingleAnswer")]
+        [Column("SingleCorrectAnswer")]
         public OptionType CorrectOption { get; set; }
         public virtual List<SingleOption> SingleOptions { get; set; }
         public SingleQuestion()
@@ -64,13 +75,16 @@ namespace Education.Models
     }
     public abstract class Option
     {
-        public int Id { get; set; }
+        //[Key, ForeignKey("Question")]
+        //public Guid QuestionId { get; set; }
+        //public virtual Question Question { get; set; }
+        //public int Id { get; set; }
         public OptionType OptionId { get; set; }
         public string OptionProperty { get; set; }
     }
     public class SingleOption : Option
     {
-        [ForeignKey("SingleQuestion")]
+        [Key, ForeignKey("SingleQuestion")]
         public Guid SingleQuestionId { get; set; }
         public virtual SingleQuestion SingleQuestion { get; set; }
 
@@ -83,7 +97,7 @@ namespace Education.Models
     {
         public bool? IsCorrect { get; set; }
 
-        [ForeignKey("MultipleQuestion")]
+        [Key, ForeignKey("MultipleQuestion")]
         public Guid MultipleQuestionId { get; set; }
         public virtual MultipleQuestion MultipleQuestion { get; set; }
 

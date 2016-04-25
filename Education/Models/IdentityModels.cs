@@ -37,5 +37,9 @@ namespace Education.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Paper> Papers { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Option> Options { get; set; }
     }
 }

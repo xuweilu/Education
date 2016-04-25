@@ -207,6 +207,10 @@
     <Compile Include="Migrations\201604250640090_change the inheritance relationship.Designer.cs">
       <DependentUpon>201604250640090_change the inheritance relationship.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604251626401_only one option.cs" />
+    <Compile Include="Migrations\201604251626401_only one option.Designer.cs">
+      <DependentUpon>201604251626401_only one option.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ExamModels.cs" />
@@ -299,6 +303,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604250640090_change the inheritance relationship.resx">
       <DependentUpon>201604250640090_change the inheritance relationship.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604251626401_only one option.resx">
+      <DependentUpon>201604251626401_only one option.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

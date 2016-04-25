@@ -55,58 +55,35 @@ namespace Education.Models
     }
     public class SingleQuestion : Question
     {
-        [Column("SingleCorrectAnswer")]
-        public OptionType CorrectOption { get; set; }
-        public virtual List<SingleOption> SingleOptions { get; set; }
+        //[Column("SingleCorrectAnswer")]
+        //public OptionType CorrectOption { get; set; }
+        public virtual List<Option> Options { get; set; }
         public SingleQuestion()
         {
-            SingleOptions = new List<SingleOption>();
+            Options = new List<Option>();
         }
 
     }
     public class MultipleQuestion : Question
     {
-        public virtual List<MultipleOption> MultipleOptions { get; set; }
+        public virtual List<Option> Options { get; set; }
         public MultipleQuestion()
         {
-            MultipleOptions = new List<MultipleOption>();
+            Options = new List<Option>();
         }
 
     }
-    public abstract class Option
+    public class Option : IEntity
     {
         [Key, ForeignKey("Question")]
-        public Guid QuestionId { get; set; }
+        public Guid Id { get; set; }
         public virtual Question Question { get; set; }
-        //public int Id { get; set; }
+
         public OptionType OptionId { get; set; }
+
         public string OptionProperty { get; set; }
-    }
-    public class SingleOption : Option
-    {
-        //[Key, ForeignKey("SingleQuestion")]
-        //public Guid SingleQuestionId { get; set; }
-        //public virtual SingleQuestion SingleQuestion { get; set; }
 
-        public SingleOption()
-        {
-            base.Question = new SingleQuestion();
-            //SingleQuestion = new SingleQuestion();
-        }
-    }
-    public class MultipleOption : Option
-    {
         public bool? IsCorrect { get; set; }
-
-        //[Key, ForeignKey("MultipleQuestion")]
-        //public Guid MultipleQuestionId { get; set; }
-        //public virtual MultipleQuestion MultipleQuestion { get; set; }
-
-        public MultipleOption()
-        {
-            base.Question = new MultipleQuestion();
-            //MultipleQuestion = new MultipleQuestion();
-        }
     }
     public enum QuestionType { 判断题 = 1, 单选题, 多选题 };
     public enum OptionType { 选项A = 1, 选项B, 选项C, 选项D, 选项E, 选项F, 选项G, 选项H, 选项I, 选项J, 选项K, 选项L, 选项M, 选项N, 选项O, 选项P, 选项Q, 选项R, 选项S, 选项T, 选项U, 选项V, 选项W, 选项X, 选项Y, 选项Z };

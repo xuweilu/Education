@@ -26,6 +26,12 @@ namespace Education.Models
         Male,
         Female
     }
+    public static class Role
+    {
+        public const string Administrator = "Administrator";
+        public const string Student = "Student";
+        public const string Teacher = "Teacher";
+    }
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()

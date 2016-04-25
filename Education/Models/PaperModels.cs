@@ -75,35 +75,37 @@ namespace Education.Models
     }
     public abstract class Option
     {
-        //[Key, ForeignKey("Question")]
-        //public Guid QuestionId { get; set; }
-        //public virtual Question Question { get; set; }
+        [Key, ForeignKey("Question")]
+        public Guid QuestionId { get; set; }
+        public virtual Question Question { get; set; }
         //public int Id { get; set; }
         public OptionType OptionId { get; set; }
         public string OptionProperty { get; set; }
     }
     public class SingleOption : Option
     {
-        [Key, ForeignKey("SingleQuestion")]
-        public Guid SingleQuestionId { get; set; }
-        public virtual SingleQuestion SingleQuestion { get; set; }
+        //[Key, ForeignKey("SingleQuestion")]
+        //public Guid SingleQuestionId { get; set; }
+        //public virtual SingleQuestion SingleQuestion { get; set; }
 
         public SingleOption()
         {
-            SingleQuestion = new SingleQuestion();
+            base.Question = new SingleQuestion();
+            //SingleQuestion = new SingleQuestion();
         }
     }
     public class MultipleOption : Option
     {
         public bool? IsCorrect { get; set; }
 
-        [Key, ForeignKey("MultipleQuestion")]
-        public Guid MultipleQuestionId { get; set; }
-        public virtual MultipleQuestion MultipleQuestion { get; set; }
+        //[Key, ForeignKey("MultipleQuestion")]
+        //public Guid MultipleQuestionId { get; set; }
+        //public virtual MultipleQuestion MultipleQuestion { get; set; }
 
         public MultipleOption()
         {
-            MultipleQuestion = new MultipleQuestion();
+            base.Question = new MultipleQuestion();
+            //MultipleQuestion = new MultipleQuestion();
         }
     }
     public enum QuestionType { 判断题 = 1, 单选题, 多选题 };

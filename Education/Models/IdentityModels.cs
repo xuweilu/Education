@@ -41,5 +41,8 @@ namespace Education.Models
         public DbSet<Paper> Papers { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Option> Options { get; set; }
+        public DbSet<Exam> Exams { get; set; }
+        public DbSet<Sheet> Sheets { get; set; }
+        public DbSet<Answer> Answers { get; set; }
     }
 }

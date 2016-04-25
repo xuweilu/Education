@@ -10,6 +10,8 @@ namespace Education.Models
     public class Paper : IEntity
     {
         public Guid Id { get; set; }
+        [ForeignKey("Teacher")]
+        public string TeacherId { get; set; }
         public virtual Teacher Teacher { get; set; }
         public virtual List<Question> Questions { get; set; }
         public Paper()
@@ -22,8 +24,8 @@ namespace Education.Models
     public abstract class Question : IEntity
     {
         public Guid Id { get; set; }
-        public QuestionType QuestionType { get; set; }
-        public string QuestionContent { get; set; }
+        public QuestionType Type { get; set; }
+        public string Content { get; set; }
 
         [ForeignKey("Paper")]
         public Guid PaperId { get; set; }
@@ -37,13 +39,13 @@ namespace Education.Models
     public class TrueOrFalseQuestion : Question
     {
         [Column("TruseOrFalseAnswer")]
-        public bool? CorrectAnswer { get; set; }
+        public bool? IsCorrect { get; set; }
 
     }
     public class SingleQuestion : Question
     {
         [Column("SingleAnswer")]
-        public OptionType CorrectAnswer { get; set; }
+        public OptionType CorrectOption { get; set; }
         public virtual List<SingleOption> SingleOptions { get; set; }
         public SingleQuestion()
         {

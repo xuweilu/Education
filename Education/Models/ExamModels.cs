@@ -88,7 +88,7 @@ namespace Education.Models
 
         public SingleAnswer()
         {
-            base.Question = new SingleQuestion();
+            base.Question = new ChoiceQuestion();
         }
     }
     public class MultipleAnswer : Answer
@@ -97,7 +97,7 @@ namespace Education.Models
         public string Answer { get; set; }
         public MultipleAnswer()
         {
-            base.Question = new MultipleQuestion();
+            base.Question = new ChoiceQuestion();
         }
     }
 }

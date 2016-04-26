@@ -211,6 +211,10 @@
     <Compile Include="Migrations\201604251626401_only one option.Designer.cs">
       <DependentUpon>201604251626401_only one option.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604251710517_merge the multiple and single into one choice question.cs" />
+    <Compile Include="Migrations\201604251710517_merge the multiple and single into one choice question.Designer.cs">
+      <DependentUpon>201604251710517_merge the multiple and single into one choice question.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ExamModels.cs" />
@@ -306,6 +310,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604251626401_only one option.resx">
       <DependentUpon>201604251626401_only one option.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604251710517_merge the multiple and single into one choice question.resx">
+      <DependentUpon>201604251710517_merge the multiple and single into one choice question.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

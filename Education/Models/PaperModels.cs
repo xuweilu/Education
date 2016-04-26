@@ -53,31 +53,22 @@ namespace Education.Models
         public bool? IsCorrect { get; set; }
 
     }
-    public class SingleQuestion : Question
+    public class ChoiceQuestion : Question
     {
-        //[Column("SingleCorrectAnswer")]
-        //public OptionType CorrectOption { get; set; }
         public virtual List<Option> Options { get; set; }
-        public SingleQuestion()
+        public ChoiceQuestion()
         {
             Options = new List<Option>();
         }
-
-    }
-    public class MultipleQuestion : Question
-    {
-        public virtual List<Option> Options { get; set; }
-        public MultipleQuestion()
-        {
-            Options = new List<Option>();
-        }
-
     }
     public class Option : IEntity
     {
-        [Key, ForeignKey("Question")]
+        [Key]
         public Guid Id { get; set; }
-        public virtual Question Question { get; set; }
+
+        [ForeignKey("ChoiceQuestion")]
+        public Guid QuestionId { get; set; }
+        public virtual ChoiceQuestion ChoiceQuestion { get; set; }
 
         public OptionType OptionId { get; set; }
 

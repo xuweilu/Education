@@ -187,33 +187,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\NinjectControllerFactory.cs" />
-    <Compile Include="Migrations\201604250248339_Initialize the models.cs" />
-    <Compile Include="Migrations\201604250248339_Initialize the models.Designer.cs">
-      <DependentUpon>201604250248339_Initialize the models.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604250259003_Change the name of some fields.cs" />
-    <Compile Include="Migrations\201604250259003_Change the name of some fields.Designer.cs">
-      <DependentUpon>201604250259003_Change the name of some fields.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604250517372_create models of exam.cs" />
-    <Compile Include="Migrations\201604250517372_create models of exam.Designer.cs">
-      <DependentUpon>201604250517372_create models of exam.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604250523248_change answers%27 name.cs" />
-    <Compile Include="Migrations\201604250523248_change answers%27 name.Designer.cs">
-      <DependentUpon>201604250523248_change answers%27 name.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604250640090_change the inheritance relationship.cs" />
-    <Compile Include="Migrations\201604250640090_change the inheritance relationship.Designer.cs">
-      <DependentUpon>201604250640090_change the inheritance relationship.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604251626401_only one option.cs" />
-    <Compile Include="Migrations\201604251626401_only one option.Designer.cs">
-      <DependentUpon>201604251626401_only one option.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604251710517_merge the multiple and single into one choice question.cs" />
-    <Compile Include="Migrations\201604251710517_merge the multiple and single into one choice question.Designer.cs">
-      <DependentUpon>201604251710517_merge the multiple and single into one choice question.cs</DependentUpon>
+    <Compile Include="Migrations\201604260312530_initialize.cs" />
+    <Compile Include="Migrations\201604260312530_initialize.Designer.cs">
+      <DependentUpon>201604260312530_initialize.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -293,26 +269,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201604250248339_Initialize the models.resx">
-      <DependentUpon>201604250248339_Initialize the models.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604250259003_Change the name of some fields.resx">
-      <DependentUpon>201604250259003_Change the name of some fields.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604250517372_create models of exam.resx">
-      <DependentUpon>201604250517372_create models of exam.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604250523248_change answers%27 name.resx">
-      <DependentUpon>201604250523248_change answers%27 name.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604250640090_change the inheritance relationship.resx">
-      <DependentUpon>201604250640090_change the inheritance relationship.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604251626401_only one option.resx">
-      <DependentUpon>201604251626401_only one option.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604251710517_merge the multiple and single into one choice question.resx">
-      <DependentUpon>201604251710517_merge the multiple and single into one choice question.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201604260312530_initialize.resx">
+      <DependentUpon>201604260312530_initialize.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

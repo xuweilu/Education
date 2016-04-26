@@ -53,19 +53,20 @@ namespace Education.Models
     //一个回答属于一张答卷，由一个学生完成，对应一个题目
     public abstract class Answer
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [ForeignKey("Sheet")]
         public Guid SheetId { get; set; }
         public virtual Sheet Sheet { get; set; }
 
         [ForeignKey("Student")]
-        public virtual string StudentId { get; set; }
+        public string StudentId { get; set; }
         public virtual Student Student { get; set; }
 
         [ForeignKey("Question")]
-        public virtual Guid QuestionId { get; set; }
+        public Guid QuestionId { get; set; }
         public virtual Question Question { get; set; }
+
         public Answer()
         {
             Sheet = new Sheet();
@@ -74,30 +75,55 @@ namespace Education.Models
     }
     public class TrueOrFalseAnswer : Answer
     {
+        //[ForeignKey("TrueOrFalseQuestion")]
+        //public Guid TrueOrFalseQuestionId { get; set; }
+        //public TrueOrFalseQuestion TrueOrFalseQuestion { get; set; }
+
         [Column("TrueOrFalseAnswer")]
         public bool? Answer { get; set; }
-        public TrueOrFalseAnswer()
-        {
-            base.Question = new TrueOrFalseQuestion();
-        }
+        //public TrueOrFalseAnswer()
+        //{
+        //    TrueOrFalseQuestion = new TrueOrFalseQuestion();
+        //}
     }
     public class SingleAnswer : Answer
     {
+        //public override Question Question
+        //{
+        //    get
+        //    {
+        //        return ChoiceQuestion;
+        //    }
+
+        //    set
+        //    {
+        //        ChoiceQuestion = (ChoiceQuestion)value;
+        //    }
+        //}
+        //[ForeignKey("SingleQuestion")]
+        //public Guid SingleQuestionId { get; set; }
+        //public ChoiceQuestion SingleQuestion { get; set; }
+
         [Column("SingleAnswer")]
         public OptionType Answer { get; set; }
 
-        public SingleAnswer()
-        {
-            base.Question = new ChoiceQuestion();
-        }
+        //public SingleAnswer()
+        //{
+        //    SingleQuestion = new ChoiceQuestion();
+        //}
     }
     public class MultipleAnswer : Answer
     {
+        //[ForeignKey("MultipleQuestion")]
+        //public Guid MultipleQuestionId { get; set; }
+        //public ChoiceQuestion MultipleQuestion { get; set; }
+
         [Column("MultipleAnswer")]
         public string Answer { get; set; }
-        public MultipleAnswer()
-        {
-            base.Question = new ChoiceQuestion();
-        }
+
+        //public MultipleAnswer()
+        //{
+        //    MultipleQuestion = new ChoiceQuestion();
+        //}
     }
 }

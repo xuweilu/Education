@@ -67,7 +67,7 @@ namespace Education.Models
         public Guid Id { get; set; }
 
         [ForeignKey("ChoiceQuestion")]
-        public Guid QuestionId { get; set; }
+        public Guid ChoiceQuestionId { get; set; }
         public virtual ChoiceQuestion ChoiceQuestion { get; set; }
 
         public OptionType OptionId { get; set; }

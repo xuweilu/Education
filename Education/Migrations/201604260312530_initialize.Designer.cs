@@ -7,13 +7,13 @@ namespace Education.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Changethenameofsomefields : IMigrationMetadata
+    public sealed partial class initialize : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Changethenameofsomefields));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initialize));
         
         string IMigrationMetadata.Id
         {
-            get { return "201604250259003_Change the name of some fields"; }
+            get { return "201604260312530_initialize"; }
         }
         
         string IMigrationMetadata.Source

@@ -34,6 +34,8 @@ namespace Education.Infrastructure
             //    new Paper { Teacher = new Teacher { TrueName = "xuweilu"} }
             //}.AsQueryable());
             ninjectKernel.Bind<IEntityRepository<Paper>>().To<EntityRepository<Paper>>();
+            ninjectKernel.Bind<IEntityRepository<Exam>>().To<EntityRepository<Exam>>();
+            ninjectKernel.Bind<IEntityRepository<TrueOrFalseQuestion>>().To<EntityRepository<TrueOrFalseQuestion>>();
         }
     }
 }

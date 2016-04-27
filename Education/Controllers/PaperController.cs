@@ -32,6 +32,7 @@ namespace Education.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(PaperViewModel paperInfo)
         {
             if (ModelState.IsValid)

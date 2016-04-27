@@ -51,16 +51,22 @@
             </div>
             <div class="form-group single-question-option">
                 <label class="control-label col-md-2">选项A</label>
-                <div class="col-md-10">
+                <div class="col-md-8">
                     @Html.TextAreaFor(model => model.SingleQuestions[0].Options[0].OptionProperty, 1, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入选项A内容" })
                     @Html.ValidationMessageFor(model => model.SingleQuestions[0].Options[0].OptionProperty, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-2">
+                    @Html.RadioButtonFor(model => model.SingleQuestions[0].CorrectAnswer, 1)
                 </div>
             </div>
             <div class="form-group single-question-option">
                 <label class="control-label col-md-2">选项B</label>
-                <div class="col-md-10">
+                <div class="col-md-8">
                     @Html.TextAreaFor(model => model.SingleQuestions[0].Options[1].OptionProperty, 1, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入选项B内容" })
                     @Html.ValidationMessageFor(model => model.SingleQuestions[0].Options[1].OptionProperty, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-2">
+                    @Html.RadioButtonFor(model => model.SingleQuestions[0].CorrectAnswer, 2)
                 </div>
             </div>
             <div class="form-group single-question-option">
@@ -70,7 +76,7 @@
                     @Html.ValidationMessageFor(model => model.SingleQuestions[0].Options[2].OptionProperty, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-2">
-                    @Html.RadioButtonFor(model => model.SingleQuestions[0].Options[3].IsCorrect, true)
+                    @Html.RadioButtonFor(model => model.SingleQuestions[0].CorrectAnswer, 3)
                 </div>
             </div>
             <div class="form-group single-question-option">
@@ -80,7 +86,7 @@
                     @Html.ValidationMessageFor(model => model.SingleQuestions[0].Options[3].OptionProperty, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-2">
-                    @Html.RadioButtonFor(model => model.SingleQuestions[0].Options[3].IsCorrect, true)
+                    @Html.RadioButtonFor(model => model.SingleQuestions[0].CorrectAnswer, 4)
                 </div>
             </div>
             <div class="form-group" id="single-question-createpanel">

@@ -57,12 +57,28 @@ namespace Education.Controllers
                     ChoiceQuestion c = new ChoiceQuestion();
                     c.Type = QuestionType.单选题;
                     c.Content = questioninfo.Content;
+                    for(int i = 0; i < 4; i++)
+                    {
+                        Option o = new Option
+                        {
+                            OptionProperty = questioninfo.Options[i].OptionProperty,
+                            OptionId = (OptionType)(i + 1),
+                        };
+                        if ((i + 1) == questioninfo.CorrectAnswer)
+                        {
+
+                        }
+                        c.Options.Add(o);
+
+                    }
                     foreach(OptionViewModel optioninfo in questioninfo.Options)
                     {
+                        if(questioninfo.CorrectAnswer = )
                         c.Options.Add(new Option
                         {
                             OptionProperty = optioninfo.OptionProperty,
                             IsCorrect = optioninfo.IsCorrect,
+                            OptionId = OptionType
                         });
                     }
                     singleQuestionList.Add(c);

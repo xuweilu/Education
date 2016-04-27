@@ -42,6 +42,7 @@ namespace Education.ViewModels
     public class SingleQuestionViewModel : QuestionViewModel
     {
         public List<OptionViewModel> Options { get; set; }
+        public int CorrectAnswer { get; set; }
         public SingleQuestionViewModel()
         {
             Type = QuestionType.单选题;
@@ -50,11 +51,11 @@ namespace Education.ViewModels
     }
     public class MultipleQuestionViewModel : QuestionViewModel
     {
-        public List<OptionViewModel> Options { get; set; }
+        public List<MultipleOptionViewModel> Options { get; set; }
         public MultipleQuestionViewModel()
         {
             Type = QuestionType.多选题;
-            Options = new List<OptionViewModel>();
+            Options = new List<MultipleOptionViewModel>();
         }
     }
 
@@ -67,12 +68,10 @@ namespace Education.ViewModels
         [Required(ErrorMessage = "请输入选项内容！")]
         public string OptionProperty { get; set; }
 
-        
+    }
+    public class MultipleOptionViewModel : OptionViewModel
+    {
         [DisplayName("选项是否正确？")]
         public bool IsCorrect { get; set; }
-        public OptionViewModel()
-        {
-            IsCorrect = false;
-        }
     }
 }

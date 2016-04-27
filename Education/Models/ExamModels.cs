@@ -86,7 +86,7 @@ namespace Education.Models
     public class SingleAnswer : Answer
     {
         [Column("SingleAnswer")]
-        public OptionType Answer { get; set; }
+        public OptionType? Answer { get; set; }
 
         public SingleAnswer()
         {

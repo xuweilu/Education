@@ -202,6 +202,10 @@
     <Compile Include="Migrations\201604260312530_initialize.Designer.cs">
       <DependentUpon>201604260312530_initialize.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604271436427_change boolean%27s value.cs" />
+    <Compile Include="Migrations\201604271436427_change boolean%27s value.Designer.cs">
+      <DependentUpon>201604271436427_change boolean%27s value.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ExamModels.cs" />
@@ -296,6 +300,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201604260312530_initialize.resx">
       <DependentUpon>201604260312530_initialize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604271436427_change boolean%27s value.resx">
+      <DependentUpon>201604271436427_change boolean%27s value.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

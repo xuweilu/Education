@@ -9,7 +9,6 @@ using Education.Abstract;
 using Education.Concrete;
 using System.Threading.Tasks;
 using Education.ViewModels;
-using Education.Extension;
 using MvcContrib.Filters;
 
 namespace Education.Controllers
@@ -115,16 +114,8 @@ namespace Education.Controllers
                 await DB.SaveChangesAsync();
                 return View();  //要改跳转的
             };
-            //RebuildModel(model);
             //return View(paperInfo);
             return RedirectToAction("Create");
         }
-
-
-
-        //private void RebuildModel(SomeModel model)
-        //{
-        //    model.Countries = new SelectList(new[] { "England", "France" });
-        //}
     }
 }

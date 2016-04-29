@@ -9,6 +9,8 @@ using Education.Abstract;
 using Education.Concrete;
 using System.Threading.Tasks;
 using Education.ViewModels;
+using Education.Extension;
+using MvcContrib.Filters;
 
 namespace Education.Controllers
 {
@@ -26,12 +28,18 @@ namespace Education.Controllers
             return View(DB.Papers.OrderByDescending(p => p.EditOn).ToPagedList(page, PageSize));
         }
 
+        [ModelStateToTempData]
         public ActionResult Create()
         {
-            return View();
+            if(TempData["LastPostModel"] == null)
+            {
+                return View();
+            }
+            return View(TempData["LastPostModel"] as PaperViewModel);
         }
 
         [HttpPost]
+        [ModelStateToTempData]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(PaperViewModel paperInfo)
         {
@@ -73,12 +81,12 @@ namespace Education.Controllers
                     }
                     foreach(OptionViewModel optioninfo in questioninfo.Options)
                     {
-                        if(questioninfo.CorrectAnswer = )
+                        //if(questioninfo.CorrectAnswer = )
                         c.Options.Add(new Option
                         {
                             OptionProperty = optioninfo.OptionProperty,
-                            IsCorrect = optioninfo.IsCorrect,
-                            OptionId = OptionType
+                            //IsCorrect = optioninfo.IsCorrect,
+                            //OptionId = OptionType
                         });
                     }
                     singleQuestionList.Add(c);
@@ -94,7 +102,7 @@ namespace Education.Controllers
                         c.Options.Add(new Option
                         {
                             OptionProperty = optioninfo.OptionProperty,
-                            IsCorrect = optioninfo.IsCorrect,
+                            //IsCorrect = optioninfo.IsCorrect,
                         });
                     }
                     multipleQuestionList.Add(c);
@@ -105,9 +113,18 @@ namespace Education.Controllers
                 repository.Add(paper);
                 //DB.Papers.Add(paper);
                 await DB.SaveChangesAsync();
-                return View();
+                return View();  //要改跳转的
             };
-            return View(paperInfo);
+            //RebuildModel(model);
+            //return View(paperInfo);
+            return RedirectToAction("Create");
         }
+
+
+
+        //private void RebuildModel(SomeModel model)
+        //{
+        //    model.Countries = new SelectList(new[] { "England", "France" });
+        //}
     }
 }

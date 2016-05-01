@@ -73,20 +73,9 @@ namespace Education.Controllers
                         };
                         if ((i + 1) == questioninfo.CorrectAnswer)
                         {
-
+                            o.IsCorrect = true;
                         }
                         c.Options.Add(o);
-
-                    }
-                    foreach(OptionViewModel optioninfo in questioninfo.Options)
-                    {
-                        //if(questioninfo.CorrectAnswer = )
-                        c.Options.Add(new Option
-                        {
-                            OptionProperty = optioninfo.OptionProperty,
-                            //IsCorrect = optioninfo.IsCorrect,
-                            //OptionId = OptionType
-                        });
                     }
                     singleQuestionList.Add(c);
                 }
@@ -96,12 +85,12 @@ namespace Education.Controllers
                     ChoiceQuestion c = new ChoiceQuestion();
                     c.Type = QuestionType.多选题;
                     c.Content = questioninfo.Content;
-                    foreach (OptionViewModel optioninfo in questioninfo.Options)
+                    foreach (MultipleOptionViewModel optioninfo in questioninfo.Options)
                     {
                         c.Options.Add(new Option
                         {
                             OptionProperty = optioninfo.OptionProperty,
-                            //IsCorrect = optioninfo.IsCorrect,
+                            IsCorrect = optioninfo.IsCorrect
                         });
                     }
                     multipleQuestionList.Add(c);
@@ -111,10 +100,10 @@ namespace Education.Controllers
                 paper.Questions.AddRange(multipleQuestionList);
                 repository.Add(paper);
                 //DB.Papers.Add(paper);
-                await DB.SaveChangesAsync();
+                //await DB.SaveChangesAsync();
+                await repository.SaveAsync();
                 return View();  //要改跳转的
             };
-            //return View(paperInfo);
             return RedirectToAction("Create");
         }
     }

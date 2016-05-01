@@ -43,6 +43,10 @@ namespace Education.Controllers
                 return User.Identity.Name;
             }
         }
+        protected async Task<ApplicationUser> GetUserByNameAsync(string username)
+        {
+            return await AppUserManager.FindByNameAsync(username);
+        }
         protected ApplicationUser GetCurrentUser()
         {
             return DB.Users.FirstOrDefault(u => u.UserName == CurrentUserName);

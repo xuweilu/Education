@@ -13,6 +13,7 @@ namespace Education.Abstract
         IQueryable<T> AllIncluding(params Expression<Func<T, object>>[] includeProperties);
         IQueryable<T> GetAll();
         T GetSingle(Guid id);
+        Task<T> GetSingleAsync(Guid id);
         IQueryable<T> FindBy(Expression<Func<T, bool>> predicate);
         PaginatedList<T> Paginate<TKey>(int pageIndex, int pageSize, Expression<Func<T, TKey>> keySelector);
         PaginatedList<T> Paginate<TKey>(
@@ -25,5 +26,6 @@ namespace Education.Abstract
         void Delete(T entity);
         void DeleteGraph(T entity);
         void Save();
+        Task SaveAsync();
     }
 }

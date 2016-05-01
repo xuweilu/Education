@@ -7,6 +7,8 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Education.Concrete
 {
@@ -42,6 +44,11 @@ namespace Education.Concrete
             return GetAll().FirstOrDefault(x => x.Id == id);
         }
 
+
+        public async Task<T> GetSingleAsync(Guid id)
+        {
+            return await GetAll().FirstOrDefaultAsync(x => x.Id == id);
+        }
         public IQueryable<T> FindBy(Expression<Func<T, bool>> predicate)
         {
             return _entitiesContext.Set<T>().Where(predicate);
@@ -89,6 +96,10 @@ namespace Education.Concrete
         public void Save()
         {
             _entitiesContext.SaveChanges();
+        }
+        public async Task SaveAsync()
+        {
+            await _entitiesContext.SaveChangesAsync();
         }
     }
 }

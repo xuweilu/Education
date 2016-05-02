@@ -18,6 +18,10 @@ namespace Education.ViewModels
             TrueOrFalseQuestions = new List<TrueOrFalseQuestionViewModel>();
             SingleQuestions = new List<SingleQuestionViewModel>();
             MultipleQuestions = new List<MultipleQuestionViewModel>();
+            //默认有一个判断题、一个单选题、一个多选题，并且一个单选题默认有四个选项，一个多选题默认有一个选项。
+            TrueOrFalseQuestions.Add(new TrueOrFalseQuestionViewModel()); 
+            SingleQuestions.Add(new SingleQuestionViewModel());
+            MultipleQuestions.Add(new MultipleQuestionViewModel());
         }
     }
     public abstract class QuestionViewModel
@@ -36,7 +40,6 @@ namespace Education.ViewModels
         public TrueOrFalseQuestionViewModel()
         {
             Type = QuestionType.判断题;
-            IsCorrect = false;
         }
     }
     public class SingleQuestionViewModel : QuestionViewModel
@@ -47,6 +50,10 @@ namespace Education.ViewModels
         {
             Type = QuestionType.单选题;
             Options = new List<OptionViewModel>();
+            Options.Add(new OptionViewModel { OptiondId = OptionType.选项A });
+            Options.Add(new OptionViewModel { OptiondId = OptionType.选项B });
+            Options.Add(new OptionViewModel { OptiondId = OptionType.选项C });
+            Options.Add(new OptionViewModel { OptiondId = OptionType.选项D });
         }
     }
     public class MultipleQuestionViewModel : QuestionViewModel
@@ -56,6 +63,7 @@ namespace Education.ViewModels
         {
             Type = QuestionType.多选题;
             Options = new List<MultipleOptionViewModel>();
+            Options.Add(new MultipleOptionViewModel());
         }
     }
 
@@ -67,11 +75,18 @@ namespace Education.ViewModels
         [DisplayName("选项内容")]
         [Required(ErrorMessage = "请输入选项内容！")]
         public string OptionProperty { get; set; }
+        public OptionViewModel()
+        {
+            OptiondId = OptionType.选项A;
+        }
 
     }
     public class MultipleOptionViewModel : OptionViewModel
     {
         [DisplayName("选项是否正确？")]
         public bool IsCorrect { get; set; }
+        public MultipleOptionViewModel() : base()
+        {
+        }
     }
 }

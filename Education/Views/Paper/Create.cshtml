@@ -1,12 +1,10 @@
 ﻿@model Education.ViewModels.PaperViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "新建试卷";
 }
 
 <h2>Create</h2>
-
-
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
@@ -20,7 +18,7 @@
             <h5>判断题</h5>
             @if (Model.TrueOrFalseQuestions.Any())
             {
-                @for (int i = 0; i < Model.TrueOrFalseQuestions.Count; i++)
+                for (int i = 0; i < Model.TrueOrFalseQuestions.Count; i++)
                 {
                     <div class="form-group trueorfalse-quesion-content">
                         @Html.LabelFor(model => model.TrueOrFalseQuestions[i].Content, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -55,7 +53,6 @@
                     </div>
                 </div>
             }
-
             <div class="form-group" id="trueorfalse-question-createpanel">
                 <div class="col-md-10 col-md-offset-2">
                     <input type="button" id="createtq" value="添加判断题" class="btn btn-primary" />
@@ -67,55 +64,109 @@
             <h4>单选题</h4>
             @if (Model.SingleQuestions.Any())
             {
+                for (int i = 0; i < Model.SingleQuestions.Count; i++)
+                {
+                    <div class="form-group single-question-content">
+                        @Html.LabelFor(model => model.SingleQuestions[i].Content, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.SingleQuestions[i].Content, 3, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入题目内容" })
+                            @Html.ValidationMessageFor(model => model.SingleQuestions[i].Content, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group single-question-option">
+                        @Html.LabelFor(model => model.SingleQuestions[i].Options[0].OptiondId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.TextAreaFor(model => model.SingleQuestions[i].Options[0].OptionProperty, 1, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入选项A内容" })
+                            @Html.ValidationMessageFor(model => model.SingleQuestions[i].Options[0].OptionProperty, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.RadioButtonFor(model => model.SingleQuestions[i].CorrectAnswer, 1)
+                        </div>
+                    </div>
+                    <div class="form-group single-question-option">
+                        @Html.LabelFor(model => model.SingleQuestions[i].Options[1].OptiondId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.TextAreaFor(model => model.SingleQuestions[i].Options[1].OptionProperty, 1, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入选项B内容" })
+                            @Html.ValidationMessageFor(model => model.SingleQuestions[i].Options[1].OptionProperty, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.RadioButtonFor(model => model.SingleQuestions[i].CorrectAnswer, 2)
+                        </div>
+                    </div>
+                    <div class="form-group single-question-option">
+                        @Html.LabelFor(model => model.SingleQuestions[i].Options[2].OptiondId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.TextAreaFor(model => model.SingleQuestions[i].Options[2].OptionProperty, 1, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入选项C内容" })
+                            @Html.ValidationMessageFor(model => model.SingleQuestions[i].Options[2].OptionProperty, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.RadioButtonFor(model => model.SingleQuestions[i].CorrectAnswer, 3)
+                        </div>
+                    </div>
+                    <div class="form-group single-question-option">
+                        @Html.LabelFor(model => model.SingleQuestions[i].Options[3].OptiondId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.TextAreaFor(model => model.SingleQuestions[i].Options[3].OptionProperty, 1, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入选项D内容" })
+                            @Html.ValidationMessageFor(model => model.SingleQuestions[i].Options[3].OptionProperty, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.RadioButtonFor(model => model.SingleQuestions[i].CorrectAnswer, 4)
+                        </div>
+                    </div>
+                }
 
             }
-            <div class="form-group single-question-content">
-                @Html.LabelFor(model => model.SingleQuestions[0].Content, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.TextAreaFor(model => model.SingleQuestions[0].Content, 3, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入题目内容" })
-                    @Html.ValidationMessageFor(model => model.SingleQuestions[0].Content, "", new { @class = "text-danger" })
+            else
+            {
+                <div class="form-group single-question-content">
+                    @Html.LabelFor(model => model.SingleQuestions[0].Content, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.SingleQuestions[0].Content, 3, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入题目内容" })
+                        @Html.ValidationMessageFor(model => model.SingleQuestions[0].Content, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
-            <div class="form-group single-question-option">
-                <label class="control-label col-md-2">选项A</label>
-                <div class="col-md-8">
-                    @Html.TextAreaFor(model => model.SingleQuestions[0].Options[0].OptionProperty, 1, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入选项A内容" })
-                    @Html.ValidationMessageFor(model => model.SingleQuestions[0].Options[0].OptionProperty, "", new { @class = "text-danger" })
+                <div class="form-group single-question-option">
+                    <label class="control-label col-md-2">选项A</label>
+                    <div class="col-md-8">
+                        @Html.TextAreaFor(model => model.SingleQuestions[0].Options[0].OptionProperty, 1, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入选项A内容" })
+                        @Html.ValidationMessageFor(model => model.SingleQuestions[0].Options[0].OptionProperty, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.RadioButtonFor(model => model.SingleQuestions[0].CorrectAnswer, 1)
+                    </div>
                 </div>
-                <div class="col-md-2">
-                    @Html.RadioButtonFor(model => model.SingleQuestions[0].CorrectAnswer, 1)
+                <div class="form-group single-question-option">
+                    <label class="control-label col-md-2">选项B</label>
+                    <div class="col-md-8">
+                        @Html.TextAreaFor(model => model.SingleQuestions[0].Options[1].OptionProperty, 1, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入选项B内容" })
+                        @Html.ValidationMessageFor(model => model.SingleQuestions[0].Options[1].OptionProperty, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.RadioButtonFor(model => model.SingleQuestions[0].CorrectAnswer, 2)
+                    </div>
                 </div>
-            </div>
-            <div class="form-group single-question-option">
-                <label class="control-label col-md-2">选项B</label>
-                <div class="col-md-8">
-                    @Html.TextAreaFor(model => model.SingleQuestions[0].Options[1].OptionProperty, 1, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入选项B内容" })
-                    @Html.ValidationMessageFor(model => model.SingleQuestions[0].Options[1].OptionProperty, "", new { @class = "text-danger" })
+                <div class="form-group single-question-option">
+                    <label class="control-label col-md-2">选项C</label>
+                    <div class="col-md-8">
+                        @Html.TextAreaFor(model => model.SingleQuestions[0].Options[2].OptionProperty, 1, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入选项C内容" })
+                        @Html.ValidationMessageFor(model => model.SingleQuestions[0].Options[2].OptionProperty, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.RadioButtonFor(model => model.SingleQuestions[0].CorrectAnswer, 3)
+                    </div>
                 </div>
-                <div class="col-md-2">
-                    @Html.RadioButtonFor(model => model.SingleQuestions[0].CorrectAnswer, 2)
+                <div class="form-group single-question-option">
+                    <label class="control-label col-md-2">选项D</label>
+                    <div class="col-md-8">
+                        @Html.TextAreaFor(model => model.SingleQuestions[0].Options[3].OptionProperty, 1, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入选项D内容" })
+                        @Html.ValidationMessageFor(model => model.SingleQuestions[0].Options[3].OptionProperty, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.RadioButtonFor(model => model.SingleQuestions[0].CorrectAnswer, 4)
+                    </div>
                 </div>
-            </div>
-            <div class="form-group single-question-option">
-                <label class="control-label col-md-2">选项C</label>
-                <div class="col-md-8">
-                    @Html.TextAreaFor(model => model.SingleQuestions[0].Options[2].OptionProperty, 1, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入选项C内容" })
-                    @Html.ValidationMessageFor(model => model.SingleQuestions[0].Options[2].OptionProperty, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-2">
-                    @Html.RadioButtonFor(model => model.SingleQuestions[0].CorrectAnswer, 3)
-                </div>
-            </div>
-            <div class="form-group single-question-option">
-                <label class="control-label col-md-2">选项D</label>
-                <div class="col-md-8">
-                    @Html.TextAreaFor(model => model.SingleQuestions[0].Options[3].OptionProperty, 1, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入选项D内容" })
-                    @Html.ValidationMessageFor(model => model.SingleQuestions[0].Options[3].OptionProperty, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-2">
-                    @Html.RadioButtonFor(model => model.SingleQuestions[0].CorrectAnswer, 4)
-                </div>
-            </div>
+            }
+
             <div class="form-group" id="single-question-createpanel">
                 <div class="col-md-10 col-md-offset-2">
                     <input type="button" id="createsq" value="添加单选题" class="btn btn-primary" />
@@ -125,41 +176,73 @@
 
         <div class="multiple-question">
             <h4>多选题</h4>
-            <div class="form-group multiple-question-content">
-                @Html.LabelFor(model => model.MultipleQuestions[0].Content, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.TextAreaFor(model => model.MultipleQuestions[0].Content, 3, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入题目内容" })
-                    @Html.ValidationMessageFor(model => model.MultipleQuestions[0].Content, "", new { @class = "text-danger" })
+            @if (Model.MultipleQuestions.Any())
+            {
+                for (int i = 0; i < Model.MultipleQuestions.Count; i++)
+                {
+                    <div class="form-group multiple-question-content">
+                        @Html.LabelFor(model => model.MultipleQuestions[i].Content, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.MultipleQuestions[i].Content, 3, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入题目内容" })
+                            @Html.ValidationMessageFor(model => model.MultipleQuestions[i].Content, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    for (int j = 0; j < Model.MultipleQuestions[i].Options.Count; j++)
+                    {
+                        <div class="form-group multiple-question-option">
+                            @Html.LabelFor(model => model.MultipleQuestions[i].Options[j].OptiondId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @*<label class="control-label col-md-2">选项A</label>*@
+                            <div class="col-md-8">
+                                @Html.TextAreaFor(model => model.MultipleQuestions[i].Options[j].OptionProperty, 1, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入选项内容" })
+                                @Html.ValidationMessageFor(model => model.MultipleQuestions[j].Options[j].OptionProperty, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-2">
+                                该选项是否正确？
+                                @Html.EditorFor(model => model.MultipleQuestions[i].Options[j].IsCorrect)
+                                @Html.ValidationMessageFor(model => model.MultipleQuestions[i].Options[j].IsCorrect, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    }
+                }
+            }
+            else
+            {
+                <div class="form-group multiple-question-content">
+                    @Html.LabelFor(model => model.MultipleQuestions[0].Content, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.MultipleQuestions[0].Content, 3, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入题目内容" })
+                        @Html.ValidationMessageFor(model => model.MultipleQuestions[0].Content, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
-            <div class="form-group multiple-question-option">
-                <label class="control-label col-md-2">选项A</label>
-                <div class="col-md-8">
-                    @Html.TextAreaFor(model => model.MultipleQuestions[0].Options[0].OptionProperty, 1, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入选项内容" })
-                    @Html.ValidationMessageFor(model => model.MultipleQuestions[0].Options[0].OptionProperty, "", new { @class = "text-danger" })
+                <div class="form-group multiple-question-option">
+                    <label class="control-label col-md-2">选项A</label>
+                    <div class="col-md-8">
+                        @Html.TextAreaFor(model => model.MultipleQuestions[0].Options[0].OptionProperty, 1, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入选项内容" })
+                        @Html.ValidationMessageFor(model => model.MultipleQuestions[0].Options[0].OptionProperty, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-2">
+                        该选项是否正确？
+                        @Html.EditorFor(model => model.MultipleQuestions[0].Options[0].IsCorrect)
+                        @Html.ValidationMessageFor(model => model.MultipleQuestions[0].Options[0].IsCorrect, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-                <div class="col-md-2">
-                    该选项是否正确？
-                    @Html.EditorFor(model => model.MultipleQuestions[0].Options[0].IsCorrect)
-                    @Html.ValidationMessageFor(model => model.MultipleQuestions[0].Options[0].IsCorrect, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
-            <div class="form-group">
-                <div class="col-md-10 col-md-offset-2">
-                    <input type="button" value="添加选项" class="btn btn-warning multiple-question-option-create" />
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
+                        <input type="button" value="添加选项" class="btn btn-warning multiple-question-option-create" />
+                    </div>
                 </div>
-            </div>
+            }
             <div class="form-group" id="multiple-question-createpanel">
                 <div class="col-md-10 col-md-offset-2">
-                    <input type="button" id="createmq" value="添加选项" class="btn btn-primary" />
+                    <input type="button" id="createmq" value="添加多选题" class="btn btn-primary" />
                 </div>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="确定" class="btn btn-default" />
             </div>
         </div>
     </div>

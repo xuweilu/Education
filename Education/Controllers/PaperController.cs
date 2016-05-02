@@ -32,7 +32,8 @@ namespace Education.Controllers
         {
             if(TempData["LastPostModel"] == null)
             {
-                return View();
+                var model = new PaperViewModel();
+                return View(model);
             }
             return View(TempData["LastPostModel"] as PaperViewModel);
         }

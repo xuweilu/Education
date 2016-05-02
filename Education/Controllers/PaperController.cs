@@ -100,10 +100,8 @@ namespace Education.Controllers
                 paper.Questions.AddRange(singleQuestionList);
                 paper.Questions.AddRange(multipleQuestionList);
                 repository.Add(paper);
-                //DB.Papers.Add(paper);
-                //await DB.SaveChangesAsync();
                 await repository.SaveAsync();
-                return View();  //要改跳转的
+                return RedirectToAction("List");
             };
             return RedirectToAction("Create");
         }

@@ -151,21 +151,59 @@ namespace Education.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                if (model.Role == RegisterRole.学生)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // 有关如何启用帐户确认和密码重置的详细信息，请访问 http://go.microsoft.com/fwlink/?LinkID=320771
-                    // 发送包含此链接的电子邮件
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "确认你的帐户", "请通过单击 <a href=\"" + callbackUrl + "\">這裏</a>来确认你的帐户");
+                    var student = new Student { UserName = model.Email, Email = model.Email };
+                    student.Gender = model.Gender == RegisterGender.男 ? Gender.Male : Gender.Female;
+                    student.TrueName = model.TrueName;
+                    var result = await UserManager.CreateAsync(student, model.Password);
+                    if (result.Succeeded)
+                    {
+                        //string roleName = Enum.GetName(typeof(RegisterRole), model.Role);
+                        string roleName = Role.Student;
+                        result = await UserManager.AddToRoleAsync(student.Id, roleName);
+                        if (result.Succeeded)
+                        {
+                            await SignInManager.SignInAsync(student, isPersistent: false, rememberBrowser: false);
 
-                    return RedirectToAction("Index", "Home");
+                            // 有关如何启用帐户确认和密码重置的详细信息，请访问 http://go.microsoft.com/fwlink/?LinkID=320771
+                            // 发送包含此链接的电子邮件
+                            // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                            // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                            // await UserManager.SendEmailAsync(user.Id, "确认你的帐户", "请通过单击 <a href=\"" + callbackUrl + "\">這裏</a>来确认你的帐户");
+
+                            return RedirectToAction("Index", "Home");
+                        }
+                        AddErrors(result);
+                    }
+                    AddErrors(result);
                 }
-                AddErrors(result);
+                else
+                {
+                    var teacher = new Teacher { UserName = model.Email, Email = model.Email };
+                    teacher.Gender = model.Gender == RegisterGender.男 ? Gender.Male : Gender.Female;
+                    teacher.TrueName = model.TrueName;
+                    var result = await UserManager.CreateAsync(teacher, model.Password);
+                    if (result.Succeeded)
+                    {
+                        string roleName = Role.Teacher;
+                        result = await UserManager.AddToRoleAsync(teacher.Id, roleName);
+                        if (result.Succeeded)
+                        {
+                            await SignInManager.SignInAsync(teacher, isPersistent: false, rememberBrowser: false);
+
+                            // 有关如何启用帐户确认和密码重置的详细信息，请访问 http://go.microsoft.com/fwlink/?LinkID=320771
+                            // 发送包含此链接的电子邮件
+                            // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                            // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                            // await UserManager.SendEmailAsync(user.Id, "确认你的帐户", "请通过单击 <a href=\"" + callbackUrl + "\">這裏</a>来确认你的帐户");
+
+                            return RedirectToAction("Index", "Home");
+                        }
+                        AddErrors(result);
+                    }
+                    AddErrors(result);
+                }
             }
 
             // 如果我们进行到这一步时某个地方出错，则重新显示表单

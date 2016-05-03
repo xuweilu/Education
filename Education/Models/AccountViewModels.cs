@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Education.Models
@@ -64,10 +65,22 @@ namespace Education.Models
 
     public class RegisterViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "请选择注册身份！")]
+        [DisplayName("注册身份")]
+        public RegisterRole Role { get; set; }
+
+        [Required(ErrorMessage = "请填写邮件地址！")]
         [EmailAddress]
         [Display(Name = "电子邮件")]
         public string Email { get; set; }
+
+        [Required(ErrorMessage = "请选择性别")]
+        [DisplayName("性别")]
+        public RegisterGender Gender { get; set; }
+
+        [Required(ErrorMessage ="请输入姓名")]
+        [DisplayName("姓名")]
+        public string TrueName { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "{0} 必须至少包含 {2} 个字符。", MinimumLength = 6)]
@@ -109,4 +122,6 @@ namespace Education.Models
         [Display(Name = "电子邮件")]
         public string Email { get; set; }
     }
+    public enum RegisterRole { 学生 = 1, 教师 }
+    public enum RegisterGender { 男 = 1, 女 }
 }

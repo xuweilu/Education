@@ -116,7 +116,7 @@
                     <label class="control-label col-md-2">@Html.DisplayFor(model => model.MultipleQuestions[i].Options[j].OptiondId)</label>
                     <div class="col-md-8">
                         @Html.TextAreaFor(model => model.MultipleQuestions[i].Options[j].OptionProperty, 1, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入选项A内容" })
-                        @Html.ValidationMessageFor(model => model.MultipleQuestions[j].Options[j].OptionProperty, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.MultipleQuestions[i].Options[j].OptionProperty, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-2">
                         该选项是否正确？

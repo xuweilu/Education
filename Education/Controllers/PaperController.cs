@@ -54,7 +54,7 @@ namespace Education.Controllers
                 {
                     trueOrFalseQuestionList.Add(new TrueOrFalseQuestion
                     {
-                        Type = QuestionType.判断题,
+                        Type = questioninfo.Type,
                         Content = questioninfo.Content,
                         IsCorrect = questioninfo.IsCorrect
                     });
@@ -63,7 +63,7 @@ namespace Education.Controllers
                 foreach(SingleQuestionViewModel questioninfo in paperInfo.SingleQuestions)
                 {
                     ChoiceQuestion c = new ChoiceQuestion();
-                    c.Type = QuestionType.单选题;
+                    c.Type = questioninfo.Type;
                     c.Content = questioninfo.Content;
                     for(int i = 0; i < 4; i++)
                     {
@@ -84,7 +84,7 @@ namespace Education.Controllers
                 foreach (MultipleQuestionViewModel questioninfo in paperInfo.MultipleQuestions)
                 {
                     ChoiceQuestion c = new ChoiceQuestion();
-                    c.Type = QuestionType.多选题;
+                    c.Type = questioninfo.Type;
                     c.Content = questioninfo.Content;
                     foreach (MultipleOptionViewModel optioninfo in questioninfo.Options)
                     {
@@ -103,6 +103,21 @@ namespace Education.Controllers
                 await repository.SaveAsync();
                 return RedirectToAction("List");
             };
+            foreach(var item in paperInfo.SingleQuestions)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    item.Options[i].OptiondId = (OptionType)(i + 1);
+                }
+            }
+            foreach(var item in paperInfo.MultipleQuestions)
+            {
+                for(int i = 0; i < item.Options.Count; i++)
+                {
+                    item.Options[i].OptiondId = (OptionType)(i + 1);
+                }
+            }
+            TempData["LastPostModel"] = paperInfo;
             return RedirectToAction("Create");
         }
     }

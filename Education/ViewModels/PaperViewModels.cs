@@ -63,7 +63,7 @@ namespace Education.ViewModels
         {
             Type = QuestionType.多选题;
             Options = new List<MultipleOptionViewModel>();
-            Options.Add(new MultipleOptionViewModel());
+            Options.Add(new MultipleOptionViewModel { OptiondId = OptionType.选项A });
         }
     }
 
@@ -75,18 +75,16 @@ namespace Education.ViewModels
         [DisplayName("选项内容")]
         [Required(ErrorMessage = "请输入选项内容！")]
         public string OptionProperty { get; set; }
-        public OptionViewModel()
-        {
-            OptiondId = OptionType.选项A;
-        }
-
     }
-    public class MultipleOptionViewModel : OptionViewModel
+    public class MultipleOptionViewModel
     {
+        [DisplayName("选项号")]
+        public OptionType OptiondId { get; set; }
+
+        [DisplayName("选项内容")]
+        [Required(ErrorMessage = "请输入选项内容！")]
+        public string OptionProperty { get; set; }
         [DisplayName("选项是否正确？")]
         public bool IsCorrect { get; set; }
-        public MultipleOptionViewModel() : base()
-        {
-        }
     }
 }

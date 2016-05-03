@@ -27,20 +27,17 @@ $(document).ready(function () {
         sqItem.find('label').eq(0).attr('for', 'SingleQuestions_' + sqSum + '__Content');
         sqItem.find('textarea').eq(0).attr('name', 'SingleQuestions[' + sqSum + '].Content').attr('id', 'SingleQuestions_' + sqSum + '__Content').val("");
         sqItem.find('span').eq(0).attr('data-valmsg-for', 'SingleQuestions[' + sqSum + '].Content');
-
-        for (var item in sqItem.children('.single-question-option')) {
-            var opNum = 0;
-            $(this).find('textarea').attr('id', 'SingleQuestions_' + sqSum + '__Options_' + opNum + '__OptionProperty').attr('name', 'SingleQuestions[' + sqSum + '].Options[' + opNum + '].OptionProperty').attr('placeholder', '在这里输入' + SingleOptionId[opNum] + '内容').val("");
-            $(this).find('span').attr('data-valmsg-for', 'SingleQuestions[' + sqSum + '].Options[' + opNum + '].OptionProperty');
+        sqItem.children('.single-question-option').each(function (i) {
+            $(this).find('textarea').attr('id', 'SingleQuestions_' + sqSum + '__Options_' + i + '__OptionProperty').attr('name', 'SingleQuestions[' + sqSum + '].Options[' + i + '].OptionProperty').attr('placeholder', '在这里输入' + SingleOptionId[i] + '内容').val("");
+            $(this).find('span').attr('data-valmsg-for', 'SingleQuestions[' + sqSum + '].Options[' + i + '].OptionProperty');
             $(this).find('input').attr('id', 'SingleQuestions_' + sqSum + '__CorrectAnswer').attr('name', 'SingleQuestions[' + sqSum + '].CorrectAnswer');
-            opNum++;
-        }
+        })
         $('#single-question-createpanel').before(sqItem);
     })
 
     //添加多选题选项
     $('.multiple-option-createbutton').click(function addMultipleOption() {
-        var opSum = $(this).closest('.multiple-question').children('.multiple-question-option').size();    //得到当前多选题选项的数目
+        var opSum = $(this).closest('.multiple-question').children('.multiple-question-option').size();    //得到当前多选题的地址
         if (opSum > 24) { alert("错误，不能超过24个选项！") }
         else
         {
@@ -72,7 +69,7 @@ $(document).ready(function () {
         mqContentItem.find('textarea').attr('name', 'MultipleQuestions[' + mqSum + '].Content').attr('id', 'MultipleQuestions_' + mqSum + '__Content').val("");
         mqContentItem.find('span').attr('data-valmsg-for', 'MultipleQuestions[' + mqSum + '].Content');
 
-        mqOptionItem.find('textarea').attr('name', 'MultipleQuestions[' + mqSum + '].Options[0].OptionProperty').attr('id', 'MultipleQuestions_' + mqSum + '__Options_0__OptionProperty');
+        mqOptionItem.find('textarea').attr('name', 'MultipleQuestions[' + mqSum + '].Options[0].OptionProperty').attr('id', 'MultipleQuestions_' + mqSum + '__Options_0__OptionProperty').val("");
         mqOptionItem.find('span').eq(0).attr('data-valmsg-for', 'MultipleQuestions[' + mqSum + '].Options[0].OptionProperty');
         mqOptionItem.find('input').attr('name', 'MultipleQuestions[' + mqSum + '].Options[0].IsCorrect');
         mqOptionItem.find('input').eq(0).attr('id', 'MultipleQuestions_' + mqSum + '__Options_0__IsCorrect');

@@ -94,7 +94,7 @@
                 </div>
             </div>
         }
-        <div class="form-group single-question-createpanel">
+        <div class="form-group" id="single-question-createpanel">
             <div class="col-md-10 col-md-offset-2">
                 <input type="button" id="createsq" value="添加单选题" class="btn btn-primary" />
             </div>
@@ -115,7 +115,7 @@
                 <div class="form-group multiple-question-option">
                     <label class="control-label col-md-2">@Html.DisplayFor(model => model.MultipleQuestions[i].Options[j].OptiondId)</label>
                     <div class="col-md-8">
-                        @Html.TextAreaFor(model => model.MultipleQuestions[i].Options[j].OptionProperty, 1, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入选项内容" })
+                        @Html.TextAreaFor(model => model.MultipleQuestions[i].Options[j].OptionProperty, 1, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入选项A内容" })
                         @Html.ValidationMessageFor(model => model.MultipleQuestions[j].Options[j].OptionProperty, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-2">
@@ -125,9 +125,9 @@
                     </div>
                 </div>
                 }
-                <div class="form-group">
+                <div class="form-group multiple-option-createpanel">
                     <div class="col-md-10 col-md-offset-2">
-                        <input type="button" value="添加选项" class="btn btn-warning multiple-question-option-create" />
+                        <input type="button" value="添加选项" class="btn btn-warning multiple-option-createbutton" />
                     </div>
                 </div>
             </div>
@@ -151,103 +151,5 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/jquery")
-    <script>
-        var tqSum = 1;  //判断题下标
-        var sqSum = 1;  //单选题下标
-        var mqSum = 1;  //多选题下标
-        var SingleOptionId = ["选项A", "选项B", "选项C", "选项D"]
-        var MultipleOptionId = ["选项A", "选项B", "选项C", "选项D", "选项E", "选项F", "选项G", "选项H", "选项I", "选项J", "选项K", "选项L", "选项M", "选项N", "选项O", "选项P", "选项Q", "选项R", "选项S", "选项T", "选项U", "选项V", "选项W", "选项X", "选项Y", "选项Z"];
-        $(document).ready(function () {
-            //添加判断题
-            $('#createtq').click(function addTrueOrFalse() {
-                var tqItem = $('#tq0').clone();
-                tqItem.attr('id', 'tq' + tqSum);
-                tqItem.children().find('label').eq(0).attr('for', 'TrueOrFalseQuestions_' + tqSum + '__Content');
-                tqItem.children().find('textarea').attr('name', 'TrueOrFalseQuestions[' + tqSum + '].Content').attr('id', 'TrueOrFalseQuestions_' + tqSum + '__Content').val("");
-                tqItem.children().find('span').eq(0).attr('data-valmsg-for', 'TrueOrFalseQuestions[' + tqSum + '].Content');
-                tqItem.children().find('label').eq(1).attr('for', 'TrueOrFalseQuestions_' + tqSum + '__IsCorrect');
-
-                tqItem.children().find('input').eq(0).attr('name', 'TrueOrFalseQuestions[' + tqSum + '].IsCorrect').attr('id', 'TrueOrFalseQuestions_' + tqSum + '__IsCorrect');
-                tqItem.children().find('input').eq(1).attr('name', 'TrueOrFalseQuestions[' + tqSum + '].IsCorrect')
-
-                tqItem.children().find('span').eq(1).attr('data-valmsg-for', 'TrueOrFalseQuestions[' + tqSum + '].IsCorrect')
-                $("#trueorfalse-question-createpanel").before(tqItem);
-                tqSum++;
-            });
-
-            //添加单选题
-            $("#createsq").click(function addSingle() {
-                var sqItem = $("#sq0").clone();
-                sqItem.attr("id", "sq" + sqSum);
-
-                sqItem.children().find("textarea").eq(0).attr("name", "SingleQuestions[" + sqSum + "].Content").val("");
-                sqItem.children().find("textarea").eq(1).attr("name", "SingleQuestions[" + sqSum + "].SingleOptions[0].OptionProperty").attr("placeholder", "在这里输入" + SingleAnswerId[0] + "内容").val("");
-                sqItem.children().find("textarea").eq(2).attr("name", "SingleQuestions[" + sqSum + "].SingleOptions[1].OptionProperty").attr("placeholder", "在这里输入" + SingleAnswerId[1] + "内容").val("");
-                sqItem.children().find("textarea").eq(3).attr("name", "SingleQuestions[" + sqSum + "].SingleOptions[2].OptionProperty").attr("placeholder", "在这里输入" + SingleAnswerId[2] + "内容").val("");
-                sqItem.children().find("textarea").eq(4).attr("name", "SingleQuestions[" + sqSum + "].SingleOptions[3].OptionProperty").attr("placeholder", "在这里输入" + SingleAnswerId[3] + "内容").val("");
-
-                sqItem.children().find("label").eq(1).text(SingleAnswerId[0]);
-                sqItem.children().find("label").eq(2).text(SingleAnswerId[1]);
-                sqItem.children().find("label").eq(3).text(SingleAnswerId[2]);
-                sqItem.children().find("label").eq(4).text(SingleAnswerId[3]);
-
-                sqItem.children().find("span").eq(0).attr("data-valmsg-for", "SingleQuestions[" + sqSum + "].Content");
-                sqItem.children().find("span").eq(1).attr("data-valmsg-for", "SingleQuestions[" + sqSum + "].SingleOptions[0].OptionProperty");
-                sqItem.children().find("span").eq(2).attr("data-valmsg-for", "SingleQuestions[" + sqSum + "].SingleOptions[1].OptionProperty");
-                sqItem.children().find("span").eq(3).attr("data-valmsg-for", "SingleQuestions[" + sqSum + "].SingleOptions[2].OptionProperty");
-                sqItem.children().find("span").eq(4).attr("data-valmsg-for", "SingleQuestions[" + sqSum + "].SingleOptions[3].OptionProperty");
-                sqItem.children().find("span").eq(5).attr("data-valmsg-for", "SingleQuestions[" + sqSum + "].Answer");
-
-                sqItem.children().find("select").attr("name", "SingleQuestions[" + sqSum + "].Answer");
-
-                $("#createsqpanel").before(sqItem);
-                sqSum++;
-            })
-
-            //添加多选题选项
-            $(".multiple-question-option-create").click(function addMultipleOption() {
-                var opnum = $(this).closest(".multiple-question").children(".multiple-question-option").size();    //得到当前多选题选项的数目
-                if (opnum > 24) { alert("错误，不能超过24个选项！") }
-                else
-                {
-                    var oppreid = opnum - 1;                //得到当前元素前元素的id
-                    var mqposition = $(this).closest(".multiple-question").attr("id").match(/\d+/)[0];    //得到当前多选题的id
-                    var moitem = $("#0mqchoice0").clone();
-                    moitem.attr("id", mqposition + "mqchoice" + opnum);
-                    moitem.children("label").text(MultipleAnswerId[opnum]);
-                    moitem.children().find("textarea").attr("name", "MultipleQuestions[" + mqposition + "].MultipleOptions[" + opnum + "].OptionProperty").val("");
-                    moitem.children().find("span").eq(0).attr("data-valmsg-for", "MultipleQuestions[" + mqposition + "].MultipleOptions[" + opnum + "].OptionProperty");
-                    moitem.children().find("span").eq(1).attr("data-valmsg-for", "MultipleQuestions[" + mqposition + "].MultipleOptions[" + opnum + "].Answer");
-                    moitem.children().find("input").attr("name", "MultipleQuestions[" + mqposition + "].MultipleOptions[" + opnum + "].Answer");
-                    $("#" + mqposition + "mqchoice" + oppreid).after(moitem);
-                }
-            })
-
-            //添加多选题
-            $("#createmq").click(function addMultiple() {
-                var mqContentItem = $("#0mqcontent").clone();
-                var mqChoiceItem = $("#0mqchoice0").clone();
-                var mqPanelItem = $("#createmopanel").clone(true);
-                var mqSum = $(".multiple-question").size();     //得到目前所有多选题的数目
-                var form = $("<div></div>").addClass("form-horizontal multiple-question").attr("id", mqSum + "mq").append($("<br>"));
-                mqContentItem.children().find("textarea").attr("name", "MultipleQuestions[" + mqSum + "].Content").val("");
-                mqContentItem.children().find("span").attr("data-valmsg-for", "MultipleQuestions[" + mqSum + "].Content");
-                mqContentItem.removeAttr("id");
-
-                mqChoiceItem.attr("id", mqSum + "mqchoice0");
-                mqChoiceItem.children().find("textarea").attr("name", "MultipleQuestions[" + mqSum + "].MultipleOptions[0].OptionProperty").val("");
-                mqChoiceItem.children().find("span").eq(0).attr("data-valmsg-for", "MultipleQuestions[" + mqSum + "].MultipleOptions[0].OptionProperty");
-                mqChoiceItem.children().find("span").eq(1).attr("data-valmsg-for", "MultipleQuestions[" + mqSum + "].MultipleOptions[0].Answer");
-                mqChoiceItem.children().find("input").attr("name", "MultipleQuestions[" + mqSum + "].MultipleOptions[0].Answer");
-
-                mqPanelItem.children().removeAttr("id");
-                mqPanelItem.children().find("input").removeAttr("id");
-
-                var finishform = form.append(mqContentItem).append(mqChoiceItem).append(mqPanelItem);
-                $("#createmqpanel").before(finishform);
-
-            })
-        })
-    </script>
+    <script src="~/Scripts/addquestion.js"></script>
 }

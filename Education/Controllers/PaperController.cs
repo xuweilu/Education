@@ -72,7 +72,7 @@ namespace Education.Controllers
                             OptionProperty = questioninfo.Options[i].OptionProperty,
                             OptionId = (OptionType)(i + 1),
                         };
-                        if ((i + 1) == questioninfo.CorrectAnswer)
+                        if ((i + 1) == questioninfo.CorrectAnswer)  //view中正确选项是从1开始的，和OptionId的枚举一致，所以这里要加一才能和正确选项相等。
                         {
                             o.IsCorrect = true;
                         }

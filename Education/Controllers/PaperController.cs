@@ -86,12 +86,13 @@ namespace Education.Controllers
                     ChoiceQuestion c = new ChoiceQuestion();
                     c.Type = questioninfo.Type;
                     c.Content = questioninfo.Content;
-                    foreach (MultipleOptionViewModel optioninfo in questioninfo.Options)
+                    for(int i = 0; i < questioninfo.Options.Count; i++)
                     {
                         c.Options.Add(new Option
                         {
-                            OptionProperty = optioninfo.OptionProperty,
-                            IsCorrect = optioninfo.IsCorrect
+                            OptionProperty = questioninfo.Options[i].OptionProperty,
+                            IsCorrect = questioninfo.Options[i].IsCorrect,
+                            OptionId = (OptionType)(i + 1)
                         });
                     }
                     multipleQuestionList.Add(c);

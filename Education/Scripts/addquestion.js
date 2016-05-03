@@ -45,8 +45,8 @@ $(document).ready(function () {
         else
         {
             var mqposition = $(this).closest('.multiple-question').attr('id').match(/\d+/)[0];    //得到当前多选题的id，因为得到的是字符串，所以要用[0]得到数字
-            var moitem = $(this).closest('.multiple-question').children('.multiple-question-option').first().clone();
-            moitem.children("label").text(MultipleOptionId[opSum]);
+            var moitem = $('#mq0').children('.multiple-question-option').first().clone();
+            moitem.children('label').text(MultipleOptionId[opSum]);
 
             moitem.find('textarea').attr('name', 'MultipleQuestions[' + mqposition + '].Options[' + opSum + '].OptionProperty').attr('id', 'MultipleQuestions_' + mqposition + '__Options_' + opSum + '__OptionProperty').attr('placeholder', '在这里输入' + MultipleOptionId[opSum] + '内容').val("");
             moitem.find('span').eq(0).attr('data-valmsg-for', 'MultipleQuestions[' + mqposition + '].Options[' + opSum + '].OptionProperty');
@@ -62,7 +62,7 @@ $(document).ready(function () {
     $("#createmq").click(function addMultiple() {
         var mqContentItem = $('#mq0').children('.multiple-question-content').clone();
         var mqOptionItem = $('#mq0').children('.multiple-question-option').first().clone();
-        var mqPanelItem = $('#mq0').children('.multiple-option-createpanel').clone();
+        var mqPanelItem = $('#mq0').children('.multiple-option-createpanel').clone(true);
 
         var mqSum = $(".multiple-question").size();     //得到目前所有多选题的数目
 

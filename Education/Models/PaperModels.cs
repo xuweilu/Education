@@ -10,6 +10,7 @@ namespace Education.Models
 {
     public class Paper : IEntity
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
         public DateTime? EditOn { get; set; }
 
@@ -21,16 +22,10 @@ namespace Education.Models
 
         public virtual List<Question> Questions { get; set; }
 
-        public Paper()
-        {
-            Exam = new Exam();
-            Teacher = new Teacher();
-            Questions = new List<Question>();
-        }
-
     }
     public abstract class Question : IEntity
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
         public QuestionType Type { get; set; }
         public string Content { get; set; }
@@ -40,29 +35,28 @@ namespace Education.Models
         public virtual Paper Paper { get; set; }
         
         public virtual List<Answer> Answers { get; set; }
-
-        public Question()
-        {
-            Paper = new Paper();
-            Answers = new List<Answer>();
-        }
     }
     public class TrueOrFalseQuestion : Question
     {
         [Column("TruseOrFalseCorrectAnswer")]
         public bool IsCorrect { get; set; }
+        public TrueOrFalseQuestion() : base()
+        {
+            Type = QuestionType.判断题;
+        }
 
     }
     public class ChoiceQuestion : Question
     {
         public virtual List<Option> Options { get; set; }
-        public ChoiceQuestion()
+        public ChoiceQuestion() : base()
         {
             Options = new List<Option>();
         }
     }
     public class Option : IEntity
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public Guid Id { get; set; }
 

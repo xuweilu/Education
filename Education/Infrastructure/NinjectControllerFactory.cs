@@ -13,6 +13,7 @@ namespace Education.Infrastructure
 {
     public class NinjectControllerFactory : DefaultControllerFactory
     {
+        //private ApplicationDbContext db = new ApplicationDbContext();
         private IKernel ninjectKernel;
         public NinjectControllerFactory()
         {
@@ -33,6 +34,7 @@ namespace Education.Infrastructure
             //{
             //    new Paper { Teacher = new Teacher { TrueName = "xuweilu"} }
             //}.AsQueryable());
+            //ninjectKernel.Bind<IEntityRepository<Paper>>().To<EntityRepository<Paper>>().WithConstructorArgument(db);
             ninjectKernel.Bind<IEntityRepository<Paper>>().To<EntityRepository<Paper>>();
             ninjectKernel.Bind<IEntityRepository<Exam>>().To<EntityRepository<Exam>>();
             ninjectKernel.Bind<IEntityRepository<ChoiceQuestion>>().To<EntityRepository<ChoiceQuestion>>();

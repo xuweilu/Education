@@ -11,7 +11,7 @@ namespace Education.Controllers
 {
     public class BaseController : Controller
     {
-        private ApplicationDbContext _db;
+        private ApplicationDbContext _db = new ApplicationDbContext();
         protected ApplicationDbContext DB
         {
             get

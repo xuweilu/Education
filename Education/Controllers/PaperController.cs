@@ -45,64 +45,77 @@ namespace Education.Controllers
         {
             if (ModelState.IsValid)
             {
-                var teacher = await GetCurrentUserAsync() as Teacher;
-                Paper paper = new Paper();
-                paper.EditOn = DateTime.Now;
-                paper.Teacher = teacher;
-                var trueOrFalseQuestionList = new List<TrueOrFalseQuestion>();
-                foreach(TrueOrFalseQuestionViewModel questioninfo in paperInfo.TrueOrFalseQuestions)
+                //var user = await GetCurrentUserAsync() as Teacher;
+                //var teacher = DB.Users.FirstOrDefault(t => t.Id == user.Id) as Teacher;
+                var teacher = GetCurrentUser() as Teacher;
+                try
                 {
-                    trueOrFalseQuestionList.Add(new TrueOrFalseQuestion
+                    Paper paper = new Paper();
+                    paper.EditOn = DateTime.Now;
+                    paper.Teacher = teacher;
+                    var trueOrFalseQuestionList = new List<TrueOrFalseQuestion>();
+                    foreach (TrueOrFalseQuestionViewModel questioninfo in paperInfo.TrueOrFalseQuestions)
                     {
-                        Type = questioninfo.Type,
-                        Content = questioninfo.Content,
-                        IsCorrect = questioninfo.IsCorrect
-                    });
-                };
-                var singleQuestionList = new List<ChoiceQuestion>();
-                foreach(SingleQuestionViewModel questioninfo in paperInfo.SingleQuestions)
-                {
-                    ChoiceQuestion c = new ChoiceQuestion();
-                    c.Type = questioninfo.Type;
-                    c.Content = questioninfo.Content;
-                    for(int i = 0; i < 4; i++)
-                    {
-                        Option o = new Option
+                        trueOrFalseQuestionList.Add(new TrueOrFalseQuestion
                         {
-                            OptionProperty = questioninfo.Options[i].OptionProperty,
-                            OptionId = (OptionType)(i + 1),
-                        };
-                        if ((i + 1) == questioninfo.CorrectAnswer)  //view中正确选项是从1开始的，和OptionId的枚举一致，所以这里要加一才能和正确选项相等。
-                        {
-                            o.IsCorrect = true;
-                        }
-                        c.Options.Add(o);
-                    }
-                    singleQuestionList.Add(c);
-                }
-                var multipleQuestionList = new List<ChoiceQuestion>();
-                foreach (MultipleQuestionViewModel questioninfo in paperInfo.MultipleQuestions)
-                {
-                    ChoiceQuestion c = new ChoiceQuestion();
-                    c.Type = questioninfo.Type;
-                    c.Content = questioninfo.Content;
-                    for(int i = 0; i < questioninfo.Options.Count; i++)
-                    {
-                        c.Options.Add(new Option
-                        {
-                            OptionProperty = questioninfo.Options[i].OptionProperty,
-                            IsCorrect = questioninfo.Options[i].IsCorrect,
-                            OptionId = (OptionType)(i + 1)
+                            Type = questioninfo.Type,
+                            Content = questioninfo.Content,
+                            IsCorrect = questioninfo.IsCorrect
                         });
+                    };
+                    var singleQuestionList = new List<ChoiceQuestion>();
+                    foreach (SingleQuestionViewModel questioninfo in paperInfo.SingleQuestions)
+                    {
+                        ChoiceQuestion c = new ChoiceQuestion();
+                        c.Type = questioninfo.Type;
+                        c.Content = questioninfo.Content;
+                        for (int i = 0; i < 4; i++)
+                        {
+                            Option o = new Option
+                            {
+                                OptionProperty = questioninfo.Options[i].OptionProperty,
+                                OptionId = (OptionType)(i + 1),
+                            };
+                            if ((i + 1) == questioninfo.CorrectAnswer)  //view中正确选项是从1开始的，和OptionId的枚举一致，所以这里要加一才能和正确选项相等。
+                            {
+                                o.IsCorrect = true;
+                            }
+                            c.Options.Add(o);
+                        }
+                        singleQuestionList.Add(c);
                     }
-                    multipleQuestionList.Add(c);
+                    var multipleQuestionList = new List<ChoiceQuestion>();
+                    foreach (MultipleQuestionViewModel questioninfo in paperInfo.MultipleQuestions)
+                    {
+                        ChoiceQuestion c = new ChoiceQuestion();
+                        c.Type = questioninfo.Type;
+                        c.Content = questioninfo.Content;
+                        for (int i = 0; i < questioninfo.Options.Count; i++)
+                        {
+                            c.Options.Add(new Option
+                            {
+                                OptionProperty = questioninfo.Options[i].OptionProperty,
+                                IsCorrect = questioninfo.Options[i].IsCorrect,
+                                OptionId = (OptionType)(i + 1)
+                            });
+                        }
+                        multipleQuestionList.Add(c);
+                    }
+                    paper.Questions = new List<Question>();
+                    paper.Questions.AddRange(trueOrFalseQuestionList);
+                    paper.Questions.AddRange(singleQuestionList);
+                    paper.Questions.AddRange(multipleQuestionList);
+                    DB.Papers.Add(paper);
+                    await DB.SaveChangesAsync();
+                    //repository.Add(paper);
+                    //await repository.SaveAsync();
+                    return RedirectToAction("Index","Home");
                 }
-                paper.Questions.AddRange(trueOrFalseQuestionList);
-                paper.Questions.AddRange(singleQuestionList);
-                paper.Questions.AddRange(multipleQuestionList);
-                repository.Add(paper);
-                await repository.SaveAsync();
-                return RedirectToAction("List");
+                catch(Exception ex)
+                {
+                    throw ex;
+                }
+
             };
             foreach(var item in paperInfo.SingleQuestions)
             {

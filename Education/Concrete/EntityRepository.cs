@@ -24,6 +24,11 @@ namespace Education.Concrete
             }
             _entitiesContext = entitiesContext;
         }
+
+        //public EntityRepository()
+        //{
+        //}
+
         public virtual IQueryable<T> GetAll()
         {
             return _entitiesContext.Set<T>();

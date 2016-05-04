@@ -18,6 +18,12 @@ namespace Education.Models
         public virtual Paper Paper { get; set; }
         public virtual List<Student> Students { get; set; }
         public virtual List<Sheet> Sheets { get; set; }
+
+        public Exam()
+        {
+            Students = new List<Student>();
+            Sheets = new List<Sheet>();
+        }
     }
     
     //答卷，一张答卷对应一场考试，由一个学生完成，有一个分数，同时有很多回答
@@ -37,6 +43,10 @@ namespace Education.Models
         public virtual Exam Exam { get; set; }
 
         public virtual List<Answer> Answers { get; set; }
+        public Sheet()
+        {
+            Answers = new List<Answer>();
+        }
     }
 
     //一个回答属于一张答卷，由一个学生完成，对应一个题目

@@ -101,14 +101,14 @@ namespace Education.Controllers
                         }
                         multipleQuestionList.Add(c);
                     }
-                    paper.Questions = new List<Question>();
+                    //paper.Questions = new List<Question>();
                     paper.Questions.AddRange(trueOrFalseQuestionList);
                     paper.Questions.AddRange(singleQuestionList);
                     paper.Questions.AddRange(multipleQuestionList);
-                    DB.Papers.Add(paper);
-                    await DB.SaveChangesAsync();
-                    //repository.Add(paper);
-                    //await repository.SaveAsync();
+                    //DB.Papers.Add(paper);
+                    //await DB.SaveChangesAsync();
+                    repository.Add(paper);
+                    await repository.SaveAsync();
                     return RedirectToAction("Index","Home");
                 }
                 catch(Exception ex)

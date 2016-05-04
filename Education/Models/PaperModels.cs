@@ -21,6 +21,11 @@ namespace Education.Models
         public virtual Exam Exam { get; set; }
 
         public virtual List<Question> Questions { get; set; }
+        public Paper()
+        {
+            Exam = new Exam();
+            Questions = new List<Question>();
+        }
 
     }
     public abstract class Question : IEntity
@@ -35,6 +40,10 @@ namespace Education.Models
         public virtual Paper Paper { get; set; }
         
         public virtual List<Answer> Answers { get; set; }
+        public Question()
+        {
+            Answers = new List<Answer>();
+        }
     }
     public class TrueOrFalseQuestion : Question
     {
@@ -57,7 +66,6 @@ namespace Education.Models
     public class Option : IEntity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key]
         public Guid Id { get; set; }
 
         [ForeignKey("ChoiceQuestion")]

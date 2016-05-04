@@ -105,10 +105,10 @@ namespace Education.Controllers
                     paper.Questions.AddRange(trueOrFalseQuestionList);
                     paper.Questions.AddRange(singleQuestionList);
                     paper.Questions.AddRange(multipleQuestionList);
-                    //DB.Papers.Add(paper);
-                    //await DB.SaveChangesAsync();
-                    repository.Add(paper);
-                    await repository.SaveAsync();
+                    DB.Papers.Add(paper);
+                    await DB.SaveChangesAsync();
+                    //repository.Add(paper);
+                    //await repository.SaveAsync();
                     return RedirectToAction("Index","Home");
                 }
                 catch(Exception ex)

@@ -14,13 +14,13 @@ namespace Education.Models
         [Key, ForeignKey("Paper")]
         public Guid Id { get; set; }
         public DateTime? ExamOn { get; set; }
-
         public virtual Paper Paper { get; set; }
         public virtual List<Student> Students { get; set; }
         public virtual List<Sheet> Sheets { get; set; }
 
         public Exam()
         {
+            Id = Guid.NewGuid();
             Students = new List<Student>();
             Sheets = new List<Sheet>();
         }
@@ -29,7 +29,8 @@ namespace Education.Models
     //答卷，一张答卷对应一场考试，由一个学生完成，有一个分数，同时有很多回答
     public class Sheet : IEntity
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
         public Guid Id { get; set; }
         public double Score { get; set; }
         public DateTime? AnswerOn { get; set; }
@@ -45,6 +46,7 @@ namespace Education.Models
         public virtual List<Answer> Answers { get; set; }
         public Sheet()
         {
+            Id = Guid.NewGuid();
             Answers = new List<Answer>();
         }
     }
@@ -52,7 +54,8 @@ namespace Education.Models
     //一个回答属于一张答卷，由一个学生完成，对应一个题目
     public abstract class Answer : IEntity
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
         public Guid Id { get; set; }
 
         [ForeignKey("Sheet")]
@@ -66,6 +69,10 @@ namespace Education.Models
         [ForeignKey("Question")]
         public Guid QuestionId { get; set; }
         public virtual Question Question { get; set; }
+        public Answer()
+        {
+            Id = Guid.NewGuid();
+        }
     }
     public class TrueOrFalseAnswer : Answer
     {

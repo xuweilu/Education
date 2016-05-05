@@ -15,7 +15,7 @@ namespace Education.Controllers
 {
     public class PaperController : BaseController
     {
-        private const int PageSize = 10;
+        private const int PageSize = 2;
         private IEntityRepository<Paper> repository;
         public PaperController(IEntityRepository<Paper> repository)
         {
@@ -125,7 +125,7 @@ namespace Education.Controllers
                     await DB.SaveChangesAsync();
                     //repository.Add(paper);
                     //await repository.SaveAsync();
-                    return RedirectToAction("Index","Home");
+                    return RedirectToAction("List");
                 }
                 catch(Exception ex)
                 {

@@ -43,6 +43,20 @@ namespace Education.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(PaperViewModel paperInfo)
         {
+            foreach (var item in paperInfo.SingleQuestions)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    item.Options[i].OptiondId = (OptionType)(i + 1);
+                }
+            }
+            foreach (var item in paperInfo.MultipleQuestions)
+            {
+                for (int i = 0; i < item.Options.Count; i++)
+                {
+                    item.Options[i].OptiondId = (OptionType)(i + 1);
+                }
+            }
             if (ModelState.IsValid)
             {
                 //var user = await GetCurrentUserAsync() as Teacher;
@@ -74,7 +88,8 @@ namespace Education.Controllers
                             Option o = new Option
                             {
                                 OptionProperty = questioninfo.Options[i].OptionProperty,
-                                OptionId = (OptionType)(i + 1),
+                                OptionId = questioninfo.Options[i].OptiondId
+                                //OptionId = (OptionType)(i + 1),
                             };
                             if ((i + 1) == questioninfo.CorrectAnswer)  //view中正确选项是从1开始的，和OptionId的枚举一致，所以这里要加一才能和正确选项相等。
                             {
@@ -96,7 +111,8 @@ namespace Education.Controllers
                             {
                                 OptionProperty = questioninfo.Options[i].OptionProperty,
                                 IsCorrect = questioninfo.Options[i].IsCorrect,
-                                OptionId = (OptionType)(i + 1)
+                                OptionId = questioninfo.Options[i].OptiondId
+                                //OptionId = (OptionType)(i + 1)
                             });
                         }
                         multipleQuestionList.Add(c);
@@ -117,20 +133,7 @@ namespace Education.Controllers
                 }
 
             };
-            foreach(var item in paperInfo.SingleQuestions)
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    item.Options[i].OptiondId = (OptionType)(i + 1);
-                }
-            }
-            foreach(var item in paperInfo.MultipleQuestions)
-            {
-                for(int i = 0; i < item.Options.Count; i++)
-                {
-                    item.Options[i].OptiondId = (OptionType)(i + 1);
-                }
-            }
+
             TempData["LastPostModel"] = paperInfo;
             return RedirectToAction("Create");
         }

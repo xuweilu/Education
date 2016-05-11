@@ -319,6 +319,7 @@
     <Content Include="Scripts\jquery-2.2.3.min.map" />
     <Content Include="Views\Paper\Create.cshtml" />
     <Content Include="Views\Paper\List.cshtml" />
+    <Content Include="Views\Paper\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

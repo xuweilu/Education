@@ -1,0 +1,137 @@
+﻿@model Education.ViewModels.PaperViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>PaperViewModel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        <h4>判断题</h4>
+        @for (int i = 0; i < Model.TrueOrFalseQuestions.Count; i++)
+        {
+            <div class="trueorfalse-question" id="tq@(i)">
+                <div class="form-group trueorfalse-quesion-content">
+                    @Html.LabelFor(model => model.TrueOrFalseQuestions[i].Content, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.TrueOrFalseQuestions[i].Content, 3, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入题目内容" })
+                        @Html.ValidationMessageFor(model => model.TrueOrFalseQuestions[i].Content, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group trueorfalse-quesion-answer">
+                    @Html.LabelFor(model => model.TrueOrFalseQuestions[i].IsCorrect, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.TrueOrFalseQuestions[i].IsCorrect)
+                        @Html.ValidationMessageFor(model => model.TrueOrFalseQuestions[i].IsCorrect, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        }
+        <h4>单选题</h4>
+        @for (int i = 0; i < Model.SingleQuestions.Count; i++)
+        {
+            <div class="single-question" id="sq@(i)">
+                <div class="form-group single-question-content">
+                    @Html.LabelFor(model => model.SingleQuestions[i].Content, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.SingleQuestions[i].Content, 3, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入题目内容" })
+                        @Html.ValidationMessageFor(model => model.SingleQuestions[i].Content, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group single-question-option">
+                    <label class="control-label col-md-2">@Html.DisplayFor(model => model.SingleQuestions[i].Options[0].OptiondId)</label>
+                    <div class="col-md-8">
+                        @Html.TextAreaFor(model => model.SingleQuestions[i].Options[0].OptionProperty, 1, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入选项A内容" })
+                        @Html.ValidationMessageFor(model => model.SingleQuestions[i].Options[0].OptionProperty, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-2">
+                        该选项是否正确？
+                        @Html.RadioButtonFor(model => model.SingleQuestions[i].CorrectAnswer, 1)
+                    </div>
+                </div>
+                <div class="form-group single-question-option">
+                    <label class="control-label col-md-2">@Html.DisplayFor(model => model.SingleQuestions[i].Options[1].OptiondId)</label>
+                    <div class="col-md-8">
+                        @Html.TextAreaFor(model => model.SingleQuestions[i].Options[1].OptionProperty, 1, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入选项B内容" })
+                        @Html.ValidationMessageFor(model => model.SingleQuestions[i].Options[1].OptionProperty, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-2">
+                        该选项是否正确？
+                        @Html.RadioButtonFor(model => model.SingleQuestions[i].CorrectAnswer, 2)
+                    </div>
+                </div>
+                <div class="form-group single-question-option">
+                    <label class="control-label col-md-2">@Html.DisplayFor(model => model.SingleQuestions[i].Options[2].OptiondId)</label>
+                    <div class="col-md-8">
+                        @Html.TextAreaFor(model => model.SingleQuestions[i].Options[2].OptionProperty, 1, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入选项C内容" })
+                        @Html.ValidationMessageFor(model => model.SingleQuestions[i].Options[2].OptionProperty, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-2">
+                        该选项是否正确？
+                        @Html.RadioButtonFor(model => model.SingleQuestions[i].CorrectAnswer, 3)
+                    </div>
+                </div>
+                <div class="form-group single-question-option">
+                    <label class="control-label col-md-2">@Html.DisplayFor(model => model.SingleQuestions[i].Options[3].OptiondId)</label>
+                    <div class="col-md-8">
+                        @Html.TextAreaFor(model => model.SingleQuestions[i].Options[3].OptionProperty, 1, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入选项D内容" })
+                        @Html.ValidationMessageFor(model => model.SingleQuestions[i].Options[3].OptionProperty, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-2">
+                        该选项是否正确？
+                        @Html.RadioButtonFor(model => model.SingleQuestions[i].CorrectAnswer, 4)
+                    </div>
+                </div>
+            </div>
+        }
+        <h4>多选题</h4>
+        @for (int i = 0; i < Model.MultipleQuestions.Count; i++)
+        {
+            <div class="multiple-question" id="mq@(i)">
+                <div class="form-group multiple-question-content">
+                    @Html.LabelFor(model => model.MultipleQuestions[i].Content, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.MultipleQuestions[i].Content, 3, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入题目内容" })
+                        @Html.ValidationMessageFor(model => model.MultipleQuestions[i].Content, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @for (int j = 0; j < Model.MultipleQuestions[i].Options.Count; j++)
+                {
+                <div class="form-group multiple-question-option">
+                    <label class="control-label col-md-2">@Html.DisplayFor(model => model.MultipleQuestions[i].Options[j].OptiondId)</label>
+                    <div class="col-md-8">
+                        @Html.TextAreaFor(model => model.MultipleQuestions[i].Options[j].OptionProperty, 1, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入选项A内容" })
+                        @Html.ValidationMessageFor(model => model.MultipleQuestions[i].Options[j].OptionProperty, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-2">
+                        该选项是否正确？
+                        @Html.EditorFor(model => model.MultipleQuestions[i].Options[j].IsCorrect)
+                        @Html.ValidationMessageFor(model => model.MultipleQuestions[i].Options[j].IsCorrect, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                }
+            </div>
+        }
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+<div>
+    @Html.ActionLink("Back to List", "List")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

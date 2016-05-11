@@ -31,7 +31,7 @@ namespace Education.Controllers
         [ModelStateToTempData]
         public ActionResult Create()
         {
-            if(TempData["LastPostModel"] == null)
+            if (TempData["LastPostModel"] == null)
             {
                 var model = new PaperViewModel();
                 return View(model);
@@ -128,7 +128,7 @@ namespace Education.Controllers
                     //await repository.SaveAsync();
                     return RedirectToAction("List");
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     throw ex;
                 }
@@ -143,7 +143,7 @@ namespace Education.Controllers
         public async Task<ActionResult> Edit(Guid id)
         {
             Paper paper = await DB.Papers.FirstOrDefaultAsync(p => p.Id == id);
-            if(paper == null)
+            if (paper == null)
             {
                 return HttpNotFound();
             }
@@ -168,12 +168,24 @@ namespace Education.Controllers
                         OptionProperty = o.OptionProperty
                     }).ToList()
                 }).ToList();
+                model.MultipleQuestions = paper.Questions.Where(q => q.Type == QuestionType.多选题).Select(q => new MultipleQuestionViewModel
+                {
+                    Content = q.Content,
+                    Type = q.Type,
+                    Options = (q as ChoiceQuestion).Options.Select(o => new MultipleOptionViewModel
+                    {
+                        OptiondId = o.OptionId,
+                        OptionProperty = o.OptionProperty,
+                        IsCorrect = o.IsCorrect
+                    }).ToList()
+                }).ToList();
+                return View(model);
             }
         }
-        [HttpPut]
-        public async Task<ActionResult> Edit(PaperViewModel paperInfo)
-        {
+        //[HttpPut]
+        //public async Task<ActionResult> Edit(PaperViewModel paperInfo)
+        //{
 
-        }
+        //}
     }
 }

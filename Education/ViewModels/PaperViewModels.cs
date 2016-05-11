@@ -10,6 +10,7 @@ namespace Education.ViewModels
 {
     public class PaperViewModel
     {
+        public Guid Id { get; set; }
         public List<TrueOrFalseQuestionViewModel> TrueOrFalseQuestions { get; set; }
         public List<SingleQuestionViewModel> SingleQuestions { get; set; }
         public List<MultipleQuestionViewModel> MultipleQuestions { get; set; }

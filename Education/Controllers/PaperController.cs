@@ -10,6 +10,7 @@ using Education.Concrete;
 using System.Threading.Tasks;
 using Education.ViewModels;
 using MvcContrib.Filters;
+using System.Data.Entity;
 
 namespace Education.Controllers
 {
@@ -136,6 +137,43 @@ namespace Education.Controllers
 
             TempData["LastPostModel"] = paperInfo;
             return RedirectToAction("Create");
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Edit(Guid id)
+        {
+            Paper paper = await DB.Papers.FirstOrDefaultAsync(p => p.Id == id);
+            if(paper == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                PaperViewModel model = new PaperViewModel();
+                model.Id = paper.Id;
+                model.TrueOrFalseQuestions = paper.Questions.Where(q => q.Type == QuestionType.判断题).Select(q => new TrueOrFalseQuestionViewModel
+                {
+                    Content = q.Content,
+                    Type = q.Type,
+                    IsCorrect = (q as TrueOrFalseQuestion).IsCorrect
+                }).ToList();
+                model.SingleQuestions = paper.Questions.Where(q => q.Type == QuestionType.单选题).Select(q => new SingleQuestionViewModel
+                {
+                    Content = q.Content,
+                    Type = q.Type,
+                    CorrectAnswer = (int)((q as ChoiceQuestion).Options.Where(o => o.IsCorrect == true).FirstOrDefault().OptionId),
+                    Options = (q as ChoiceQuestion).Options.Select(o => new OptionViewModel
+                    {
+                        OptiondId = o.OptionId,
+                        OptionProperty = o.OptionProperty
+                    }).ToList()
+                }).ToList();
+            }
+        }
+        [HttpPut]
+        public async Task<ActionResult> Edit(PaperViewModel paperInfo)
+        {
+
         }
     }
 }

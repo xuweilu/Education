@@ -27,6 +27,7 @@ namespace Education.ViewModels
     }
     public abstract class QuestionViewModel
     {
+        public Guid Id { get; set; }
         [DisplayName("题目类型")]
         public QuestionType Type { get; set; }
 

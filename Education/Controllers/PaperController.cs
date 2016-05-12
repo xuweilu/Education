@@ -153,16 +153,18 @@ namespace Education.Controllers
                 model.Id = paper.Id;
                 model.TrueOrFalseQuestions = paper.Questions.Where(q => q.Type == QuestionType.判断题).Select(q => new TrueOrFalseQuestionViewModel
                 {
+                    Id = q.Id,
                     Content = q.Content,
                     Type = q.Type,
                     IsCorrect = (q as TrueOrFalseQuestion).IsCorrect
                 }).ToList();
                 model.SingleQuestions = paper.Questions.Where(q => q.Type == QuestionType.单选题).Select(q => new SingleQuestionViewModel
                 {
+                    Id = q.Id,
                     Content = q.Content,
                     Type = q.Type,
                     CorrectAnswer = (int)((q as ChoiceQuestion).Options.Where(o => o.IsCorrect == true).FirstOrDefault().OptionId),
-                    Options = (q as ChoiceQuestion).Options.Select(o => new OptionViewModel
+                    Options = (q as ChoiceQuestion).Options.OrderBy(o => o.OptionId).Select(o => new OptionViewModel
                     {
                         OptiondId = o.OptionId,
                         OptionProperty = o.OptionProperty
@@ -170,9 +172,10 @@ namespace Education.Controllers
                 }).ToList();
                 model.MultipleQuestions = paper.Questions.Where(q => q.Type == QuestionType.多选题).Select(q => new MultipleQuestionViewModel
                 {
+                    Id = q.Id,
                     Content = q.Content,
                     Type = q.Type,
-                    Options = (q as ChoiceQuestion).Options.Select(o => new MultipleOptionViewModel
+                    Options = (q as ChoiceQuestion).Options.OrderBy(o => o.OptionId).Select(o => new MultipleOptionViewModel
                     {
                         OptiondId = o.OptionId,
                         OptionProperty = o.OptionProperty,
@@ -182,10 +185,64 @@ namespace Education.Controllers
                 return View(model);
             }
         }
-        //[HttpPut]
-        //public async Task<ActionResult> Edit(PaperViewModel paperInfo)
+
+        [HttpPost]
+        public async Task<ActionResult> Edit(Guid id, PaperViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+            Paper oldPaper = await DB.Papers.FindAsync(id);
+            oldPaper.EditOn = DateTime.Now;
+            foreach (var question in oldPaper.Questions)
+            {
+                switch (question.Type)
+                {
+                    case QuestionType.判断题:
+                        var editedTq = model.TrueOrFalseQuestions.Find(t => t.Id == question.Id);
+                        question.Content = editedTq.Content;
+                        (question as TrueOrFalseQuestion).IsCorrect = editedTq.IsCorrect;
+                        DB.Entry(question).State = EntityState.Modified;
+                        break;
+                    case QuestionType.单选题:
+                        var editedSq = model.SingleQuestions.Find(s => s.Id == question.Id);
+                        question.Content = editedSq.Content;
+                        foreach (var op in (question as ChoiceQuestion).Options)
+                        {
+                            op.OptionProperty = editedSq.Options.Find(o => o.OptiondId == op.OptionId).OptionProperty;
+                            if (op.OptionId == (OptionType)editedSq.CorrectAnswer)
+                            {
+                                op.IsCorrect = true;
+                            }
+                            op.IsCorrect = false;
+                        }
+                        DB.Entry(question).State = EntityState.Modified;
+                        break;
+                    case QuestionType.多选题:
+                        var editedMq = model.MultipleQuestions.Find(m => m.Id == question.Id);
+                        question.Content = editedMq.Content;
+                        foreach (var op in (question as ChoiceQuestion).Options)
+                        {
+                            op.OptionProperty = editedMq.Options.Find(o => o.OptiondId == op.OptionId).OptionProperty;
+                            op.IsCorrect = editedMq.Options.Find(o => o.OptiondId == op.OptionId).IsCorrect;
+                        }
+                        DB.Entry(question).State = EntityState.Modified;
+                        break;
+                }
+            }
+            DB.Entry(oldPaper).State = EntityState.Modified;
+            await DB.SaveChangesAsync();
+            return RedirectToAction("List");
+        }
+        //[HttpPost]
+        //public async Task<ActionResult> Edit(Guid id, FormCollection collection)
         //{
 
+        //    var paperToUpdate = await DB.Papers.FirstOrDefaultAsync(p => p.Id == id);
+        //    if (TryUpdateModel(paperToUpdate, "", collection.AllKeys, new string[] { "Id," }) && ModelState.IsValid)
+        //    {
+        //        await DB.SaveChangesAsync();
+        //    }
+        //    return View(paperToUpdate);
         //}
     }
 }

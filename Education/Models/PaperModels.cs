@@ -25,7 +25,7 @@ namespace Education.Models
         public Paper()
         {
             Id = Guid.NewGuid();
-            Exam = new Exam();
+            //Exam = new Exam();
             Questions = new List<Question>();
         }
 

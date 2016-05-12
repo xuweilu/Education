@@ -233,6 +233,25 @@ namespace Education.Controllers
             await DB.SaveChangesAsync();
             return RedirectToAction("List");
         }
+
+        public async Task<ActionResult> Details(Guid id)
+        {
+            var paper = await DB.Papers.FindAsync(id);
+            return View(paper);
+        }
+        [HttpPost]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            //var paper = await DB.Papers.FindAsync(id);
+            var paper = await DB.Papers.FirstOrDefaultAsync(p => p.Id == id);
+            if(paper == null)
+            {
+                return HttpNotFound();
+            }
+            DB.Papers.Remove(paper);
+            await DB.SaveChangesAsync();
+            return new EmptyResult();
+        }
         //[HttpPost]
         //public async Task<ActionResult> Edit(Guid id, FormCollection collection)
         //{

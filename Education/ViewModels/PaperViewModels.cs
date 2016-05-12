@@ -20,7 +20,7 @@ namespace Education.ViewModels
             SingleQuestions = new List<SingleQuestionViewModel>();
             MultipleQuestions = new List<MultipleQuestionViewModel>();
             //默认有一个判断题、一个单选题、一个多选题，并且一个单选题默认有四个选项，一个多选题默认有一个选项。
-            TrueOrFalseQuestions.Add(new TrueOrFalseQuestionViewModel()); 
+            TrueOrFalseQuestions.Add(new TrueOrFalseQuestionViewModel());
             SingleQuestions.Add(new SingleQuestionViewModel());
             MultipleQuestions.Add(new MultipleQuestionViewModel());
         }

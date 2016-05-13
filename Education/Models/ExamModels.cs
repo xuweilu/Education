@@ -11,12 +11,12 @@ namespace Education.Models
     //考试，一场考试和一张卷子一一对应，同时对应很多学生，对应很多答卷
     public class Exam : IEntity
     {
-        [Key]
+        [Key, ForeignKey("Paper")]
         public Guid Id { get; set; }
         public DateTime? ExamOn { get; set; }
 
-        [ForeignKey("Paper")]
-        public Guid PaperId { get; set; }
+        //[ForeignKey("Paper")]
+        //public Guid PaperId { get; set; }
         public virtual Paper Paper { get; set; }
 
         public virtual List<Student> Students { get; set; }
@@ -29,7 +29,7 @@ namespace Education.Models
             Sheets = new List<Sheet>();
         }
     }
-    
+
     //答卷，一张答卷对应一场考试，由一个学生完成，有一个分数，同时有很多回答
     public class Sheet : IEntity
     {

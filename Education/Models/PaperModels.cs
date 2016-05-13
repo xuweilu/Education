@@ -10,18 +10,15 @@ namespace Education.Models
 {
     public class Paper : IEntity
     {
-        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public Guid Id { get; set; }
-        public DateTime? EditOn { get; set; }
+        public DateTime EditOn { get; set; }
 
         [ForeignKey("Teacher")]
         public string TeacherId { get; set; }
         public virtual Teacher Teacher { get; set; }
 
-        //[ForeignKey("Exam")]
-        //public Guid ExamId { get; set; }
-        //public virtual Exam Exam { get; set; }
+        public virtual Exam Exam { get; set; }
 
         public virtual List<Question> Questions { get; set; }
         public Paper()

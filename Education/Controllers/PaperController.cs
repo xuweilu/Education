@@ -247,7 +247,7 @@ namespace Education.Controllers
             var paper = await DB.Papers.FindAsync(id);
             PaperViewModel model = new PaperViewModel();
             model.TeacherName = paper.Teacher.TrueName;
-            model.EditOn = paper.EditOn.Value.ToShortDateString();
+            model.EditOn = paper.EditOn.ToShortDateString();
             model.TrueOrFalseQuestions = paper.Questions.Where(q => q.Type == QuestionType.判断题).Select(q => new TrueOrFalseQuestionViewModel
             {
                 Content = q.Content,

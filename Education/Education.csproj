@@ -202,6 +202,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PaperController.cs" />
+    <Compile Include="DataAccess\EducationMaps.cs" />
     <Compile Include="Extension\ExportModelStateToTempDataAttribute.cs" />
     <Compile Include="Extension\ImportModelStateFromTempDataAttribute.cs" />
     <Compile Include="Extension\ModelStateExtensions.cs" />
@@ -211,6 +212,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\NinjectControllerFactory.cs" />
+    <Compile Include="Migrations\201605130523280_initial.cs" />
+    <Compile Include="Migrations\201605130523280_initial.Designer.cs">
+      <DependentUpon>201605130523280_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ExamModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -307,6 +313,11 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201605130523280_initial.resx">
+      <DependentUpon>201605130523280_initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

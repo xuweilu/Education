@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
+using Education.DataAccess;
 
 namespace Education.Models
 {
@@ -43,7 +44,13 @@ namespace Education.Models
         {
             return new ApplicationDbContext();
         }
-
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Paper>().HasOptional(p => p.Exam).WithRequired(e => e.Paper);
+        //    //modelBuilder.Configurations.Add(new PaperMap());
+        //    //modelBuilder.ComplexType<T>();
+        //    base.OnModelCreating(modelBuilder);
+        //}
         public DbSet<Paper> Papers { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Option> Options { get; set; }

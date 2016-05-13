@@ -216,11 +216,14 @@ namespace Education.Controllers
                         foreach (var op in (question as ChoiceQuestion).Options)
                         {
                             op.OptionProperty = editedSq.Options.Find(o => o.OptionId == op.OptionId).OptionProperty;
-                            if (op.OptionId == (OptionType)editedSq.CorrectAnswer)
+                            if ((int)op.OptionId == editedSq.CorrectAnswer)
                             {
                                 op.IsCorrect = true;
                             }
-                            op.IsCorrect = false;
+                            else
+                            {
+                                op.IsCorrect = false;
+                            }
                         }
                         DB.Entry(question).State = EntityState.Modified;
                         break;
@@ -254,6 +257,38 @@ namespace Education.Controllers
                 IsCorrect = (q as TrueOrFalseQuestion).IsCorrect,
                 Type = QuestionType.判断题
             }).ToList();
+            #region comment
+            //model.SingleQuestions.Clear();
+            //foreach (var sq in paper.Questions.Where(q => q.Type == QuestionType.单选题))
+            //{
+            //    SingleQuestionViewModel sqView = new SingleQuestionViewModel();
+            //    sqView.Content = sq.Content;
+            //    var a = sq as ChoiceQuestion;
+            //    var b = a.Options.FirstOrDefault(o => o.IsCorrect == true);
+            //    var c = b.OptionId;
+            //    var d = (int)c;
+            //    sqView.CorrectAnswer = (int)((sq as ChoiceQuestion).Options.Where(o => o.IsCorrect == true).FirstOrDefault().OptionId);
+            //    sqView.Type = QuestionType.单选题;
+            //    sqView.Options.Clear();
+            //    foreach(var op in (sq as ChoiceQuestion).Options)
+            //    {
+            //        sqView.Options.Add(new OptionViewModel
+            //        {
+            //            OptionId = op.OptionId,
+            //            OptionProperty = op.OptionProperty
+            //        });
+            //    }
+            //    model.SingleQuestions.Add(sqView);
+
+            //    //model.SingleQuestions.Add(new SingleQuestionViewModel
+            //    //{
+            //    //    Content = sq.Content,
+            //    //    CorrectAnswer = (int)((q as ChoiceQuestion).Options.Where(o => o.IsCorrect == true).FirstOrDefault().OptionId),
+            //    //    Type = QuestionType.单选题,
+            //    //    Options
+            //    //})
+            //}
+            #endregion
             model.SingleQuestions = paper.Questions.Where(q => q.Type == QuestionType.单选题).Select(q => new SingleQuestionViewModel
             {
                 Content = q.Content,

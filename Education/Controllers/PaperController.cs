@@ -151,36 +151,43 @@ namespace Education.Controllers
             {
                 PaperViewModel model = new PaperViewModel();
                 model.Id = paper.Id;
+                try
+                {
+                    model.MultipleQuestions = paper.Questions.Where(q => q.Type == QuestionType.多选题).Select(q => new MultipleQuestionViewModel
+                    {
+                        Id = q.Id,
+                        Content = q.Content,
+                        Type = q.Type,
+                        Options = (q as ChoiceQuestion).Options.OrderBy(o => o.OptionId).Select(o => new MultipleOptionViewModel
+                        {
+                            OptionId = o.OptionId,
+                            OptionProperty = o.OptionProperty,
+                            IsCorrect = o.IsCorrect
+                        }).ToList()
+                    }).ToList();
+                    model.SingleQuestions = paper.Questions.Where(q => q.Type == QuestionType.单选题).Select(q => new SingleQuestionViewModel
+                    {
+                        Id = q.Id,
+                        Content = q.Content,
+                        Type = q.Type,
+                        CorrectAnswer = (int)((q as ChoiceQuestion).Options.Where(o => o.IsCorrect == true).FirstOrDefault().OptionId),
+                        Options = (q as ChoiceQuestion).Options.OrderBy(o => o.OptionId).Select(o => new OptionViewModel
+                        {
+                            OptionId = o.OptionId,
+                            OptionProperty = o.OptionProperty
+                        }).ToList()
+                    }).ToList();
+                }
+                catch(Exception ex)
+                {
+                    throw ex;
+                }
                 model.TrueOrFalseQuestions = paper.Questions.Where(q => q.Type == QuestionType.判断题).Select(q => new TrueOrFalseQuestionViewModel
                 {
                     Id = q.Id,
                     Content = q.Content,
                     Type = q.Type,
                     IsCorrect = (q as TrueOrFalseQuestion).IsCorrect
-                }).ToList();
-                model.SingleQuestions = paper.Questions.Where(q => q.Type == QuestionType.单选题).Select(q => new SingleQuestionViewModel
-                {
-                    Id = q.Id,
-                    Content = q.Content,
-                    Type = q.Type,
-                    CorrectAnswer = (int)((q as ChoiceQuestion).Options.Where(o => o.IsCorrect == true).FirstOrDefault().OptionId),
-                    Options = (q as ChoiceQuestion).Options.OrderBy(o => o.OptionId).Select(o => new OptionViewModel
-                    {
-                        OptionId = o.OptionId,
-                        OptionProperty = o.OptionProperty
-                    }).ToList()
-                }).ToList();
-                model.MultipleQuestions = paper.Questions.Where(q => q.Type == QuestionType.多选题).Select(q => new MultipleQuestionViewModel
-                {
-                    Id = q.Id,
-                    Content = q.Content,
-                    Type = q.Type,
-                    Options = (q as ChoiceQuestion).Options.OrderBy(o => o.OptionId).Select(o => new MultipleOptionViewModel
-                    {
-                        OptionId = o.OptionId,
-                        OptionProperty = o.OptionProperty,
-                        IsCorrect = o.IsCorrect
-                    }).ToList()
                 }).ToList();
                 return View(model);
             }

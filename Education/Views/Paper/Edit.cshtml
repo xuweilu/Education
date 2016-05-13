@@ -49,9 +49,9 @@
                         @Html.ValidationMessageFor(model => model.SingleQuestions[i].Content, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                @Html.HiddenFor(model => model.SingleQuestions[i].Options[0].OptiondId)
+                @Html.HiddenFor(model => model.SingleQuestions[i].Options[0].OptionId)
                 <div class="form-group single-question-option">
-                    <label class="control-label col-md-2">@Html.DisplayFor(model => model.SingleQuestions[i].Options[0].OptiondId)</label>
+                    <label class="control-label col-md-2">@Html.DisplayFor(model => model.SingleQuestions[i].Options[0].OptionId)</label>
                     <div class="col-md-8">
                         @Html.TextAreaFor(model => model.SingleQuestions[i].Options[0].OptionProperty, 1, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入选项A内容" })
                         @Html.ValidationMessageFor(model => model.SingleQuestions[i].Options[0].OptionProperty, "", new { @class = "text-danger" })
@@ -61,9 +61,9 @@
                         @Html.RadioButtonFor(model => model.SingleQuestions[i].CorrectAnswer, 1)
                     </div>
                 </div>
-                @Html.HiddenFor(model => model.SingleQuestions[i].Options[1].OptiondId)
+                @Html.HiddenFor(model => model.SingleQuestions[i].Options[1].OptionId)
                 <div class="form-group single-question-option">
-                    <label class="control-label col-md-2">@Html.DisplayFor(model => model.SingleQuestions[i].Options[1].OptiondId)</label>
+                    <label class="control-label col-md-2">@Html.DisplayFor(model => model.SingleQuestions[i].Options[1].OptionId)</label>
                     <div class="col-md-8">
                         @Html.TextAreaFor(model => model.SingleQuestions[i].Options[1].OptionProperty, 1, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入选项B内容" })
                         @Html.ValidationMessageFor(model => model.SingleQuestions[i].Options[1].OptionProperty, "", new { @class = "text-danger" })
@@ -73,9 +73,9 @@
                         @Html.RadioButtonFor(model => model.SingleQuestions[i].CorrectAnswer, 2)
                     </div>
                 </div>
-                @Html.HiddenFor(model => model.SingleQuestions[i].Options[2].OptiondId)
+                @Html.HiddenFor(model => model.SingleQuestions[i].Options[2].OptionId)
                 <div class="form-group single-question-option">
-                    <label class="control-label col-md-2">@Html.DisplayFor(model => model.SingleQuestions[i].Options[2].OptiondId)</label>
+                    <label class="control-label col-md-2">@Html.DisplayFor(model => model.SingleQuestions[i].Options[2].OptionId)</label>
                     <div class="col-md-8">
                         @Html.TextAreaFor(model => model.SingleQuestions[i].Options[2].OptionProperty, 1, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入选项C内容" })
                         @Html.ValidationMessageFor(model => model.SingleQuestions[i].Options[2].OptionProperty, "", new { @class = "text-danger" })
@@ -85,9 +85,9 @@
                         @Html.RadioButtonFor(model => model.SingleQuestions[i].CorrectAnswer, 3)
                     </div>
                 </div>
-                @Html.HiddenFor(model => model.SingleQuestions[i].Options[3].OptiondId)
+                @Html.HiddenFor(model => model.SingleQuestions[i].Options[3].OptionId)
                 <div class="form-group single-question-option">
-                    <label class="control-label col-md-2">@Html.DisplayFor(model => model.SingleQuestions[i].Options[3].OptiondId)</label>
+                    <label class="control-label col-md-2">@Html.DisplayFor(model => model.SingleQuestions[i].Options[3].OptionId)</label>
                     <div class="col-md-8">
                         @Html.TextAreaFor(model => model.SingleQuestions[i].Options[3].OptionProperty, 1, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入选项D内容" })
                         @Html.ValidationMessageFor(model => model.SingleQuestions[i].Options[3].OptionProperty, "", new { @class = "text-danger" })
@@ -113,9 +113,9 @@
                 </div>
                 @for (int j = 0; j < Model.MultipleQuestions[i].Options.Count; j++)
                 {
-                    @Html.HiddenFor(model => model.MultipleQuestions[i].Options[j].OptiondId)
+                    @Html.HiddenFor(model => model.MultipleQuestions[i].Options[j].OptionId)
                     <div class="form-group multiple-question-option">
-                        <label class="control-label col-md-2">@Html.DisplayFor(model => model.MultipleQuestions[i].Options[j].OptiondId)</label>
+                        <label class="control-label col-md-2">@Html.DisplayFor(model => model.MultipleQuestions[i].Options[j].OptionId)</label>
                         <div class="col-md-8">
                             @Html.TextAreaFor(model => model.MultipleQuestions[i].Options[j].OptionProperty, 1, 10, htmlAttributes: new { @class = "form-control", placeholder = "在这里输入选项A内容" })
                             @Html.ValidationMessageFor(model => model.MultipleQuestions[i].Options[j].OptionProperty, "", new { @class = "text-danger" })

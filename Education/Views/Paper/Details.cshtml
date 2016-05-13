@@ -1,31 +1,17 @@
-﻿@model Education.Models.Paper
+﻿@model Education.ViewModels.PaperViewModel
 
 @{
+    Layout = null;
     ViewBag.Title = "Detail";
 }
-
-<h2>Detail</h2>
-
+<h1>试卷</h1>
+<h3>出题人:@Html.DisplayFor(model => model.TeacherName)</h3>
+<h3>最近一次修改时间:@Html.DisplayFor(model => model.EditOn)</h3>
 <div>
-    <h4>Paper</h4>
-    <hr />
+    @{ var optionName = new string[] { "选项A", "选项B", "选项C", "选项D" };}
+    <h4>判断题</h4>
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Teacher.TrueName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Teacher.TrueName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EditOn)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EditOn)
-        </dd>
-        @foreach(var item in Model.Questions)
+        @foreach (var item in Model.TrueOrFalseQuestions)
         {
             <dt>
                 @Html.DisplayNameFor(modelItem => item.Content)
@@ -33,8 +19,60 @@
             <dd>
                 @Html.DisplayFor(modelItem => item.Content)
             </dd>
+            <dt>
+                正确答案
+            </dt>
+            <dd>
+                @Html.DisplayFor(modelItem => item.IsCorrect)
+            </dd>
         }
-
+    </dl>
+    <h4>单选题</h4>
+    <dl class="dl-horizontal">
+        @foreach (var item in Model.SingleQuestions)
+        {
+            <dt>
+                @Html.DisplayNameFor(modelItem => item.Content)
+            </dt>
+            <dd>
+                @Html.DisplayFor(modelItem => item.Content)
+            </dd>
+            foreach (var opItem in item.Options)
+            {
+                <dt>
+                    @Html.DisplayFor(op => opItem.OptionId)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(op => opItem.OptionProperty)
+                </dd>
+            }
+            <dt>
+                正确答案
+            </dt>
+            <dd>
+                @Html.DisplayFor(modelItem => optionName[(item.CorrectAnswer - 1)])
+            </dd>
+        }
+    </dl>
+    <h4>多选题</h4>
+    <dl class="dl-horizontal">
+        @foreach (var item in Model.MultipleQuestions)
+        {
+            <dt>
+                @Html.DisplayNameFor(modelItem => item.Content)
+            </dt>
+            <dd>
+                @Html.DisplayFor(modelItem => item.Content)
+            </dd>
+            foreach (var opItem in item.Options)
+            {
+                if (opItem.IsCorrect)
+                {
+                    <dt>正确答案</dt>
+                    <dd>@Html.DisplayFor(modelItem => opItem.OptionId)</dd>
+                }
+            }
+        }
     </dl>
 </div>
 <p>

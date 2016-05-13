@@ -48,14 +48,14 @@ namespace Education.Controllers
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    item.Options[i].OptiondId = (OptionType)(i + 1);
+                    item.Options[i].OptionId = (OptionType)(i + 1);
                 }
             }
             foreach (var item in paperInfo.MultipleQuestions)
             {
                 for (int i = 0; i < item.Options.Count; i++)
                 {
-                    item.Options[i].OptiondId = (OptionType)(i + 1);
+                    item.Options[i].OptionId = (OptionType)(i + 1);
                 }
             }
             if (ModelState.IsValid)
@@ -89,7 +89,7 @@ namespace Education.Controllers
                             Option o = new Option
                             {
                                 OptionProperty = questioninfo.Options[i].OptionProperty,
-                                OptionId = questioninfo.Options[i].OptiondId
+                                OptionId = questioninfo.Options[i].OptionId
                                 //OptionId = (OptionType)(i + 1),
                             };
                             if ((i + 1) == questioninfo.CorrectAnswer)  //view中正确选项是从1开始的，和OptionId的枚举一致，所以这里要加一才能和正确选项相等。
@@ -112,7 +112,7 @@ namespace Education.Controllers
                             {
                                 OptionProperty = questioninfo.Options[i].OptionProperty,
                                 IsCorrect = questioninfo.Options[i].IsCorrect,
-                                OptionId = questioninfo.Options[i].OptiondId
+                                OptionId = questioninfo.Options[i].OptionId
                                 //OptionId = (OptionType)(i + 1)
                             });
                         }
@@ -166,7 +166,7 @@ namespace Education.Controllers
                     CorrectAnswer = (int)((q as ChoiceQuestion).Options.Where(o => o.IsCorrect == true).FirstOrDefault().OptionId),
                     Options = (q as ChoiceQuestion).Options.OrderBy(o => o.OptionId).Select(o => new OptionViewModel
                     {
-                        OptiondId = o.OptionId,
+                        OptionId = o.OptionId,
                         OptionProperty = o.OptionProperty
                     }).ToList()
                 }).ToList();
@@ -177,7 +177,7 @@ namespace Education.Controllers
                     Type = q.Type,
                     Options = (q as ChoiceQuestion).Options.OrderBy(o => o.OptionId).Select(o => new MultipleOptionViewModel
                     {
-                        OptiondId = o.OptionId,
+                        OptionId = o.OptionId,
                         OptionProperty = o.OptionProperty,
                         IsCorrect = o.IsCorrect
                     }).ToList()
@@ -208,7 +208,7 @@ namespace Education.Controllers
                         question.Content = editedSq.Content;
                         foreach (var op in (question as ChoiceQuestion).Options)
                         {
-                            op.OptionProperty = editedSq.Options.Find(o => o.OptiondId == op.OptionId).OptionProperty;
+                            op.OptionProperty = editedSq.Options.Find(o => o.OptionId == op.OptionId).OptionProperty;
                             if (op.OptionId == (OptionType)editedSq.CorrectAnswer)
                             {
                                 op.IsCorrect = true;
@@ -222,8 +222,8 @@ namespace Education.Controllers
                         question.Content = editedMq.Content;
                         foreach (var op in (question as ChoiceQuestion).Options)
                         {
-                            op.OptionProperty = editedMq.Options.Find(o => o.OptiondId == op.OptionId).OptionProperty;
-                            op.IsCorrect = editedMq.Options.Find(o => o.OptiondId == op.OptionId).IsCorrect;
+                            op.OptionProperty = editedMq.Options.Find(o => o.OptionId == op.OptionId).OptionProperty;
+                            op.IsCorrect = editedMq.Options.Find(o => o.OptionId == op.OptionId).IsCorrect;
                         }
                         DB.Entry(question).State = EntityState.Modified;
                         break;
@@ -238,7 +238,29 @@ namespace Education.Controllers
         {
             //var paper = await DB.Papers.FirstOrDefaultAsync(p => p.Id == id);
             var paper = await DB.Papers.FindAsync(id);
-            return View(paper);
+            PaperViewModel model = new PaperViewModel();
+            model.TeacherName = paper.Teacher.TrueName;
+            model.EditOn = paper.EditOn.Value.ToShortDateString();
+            model.TrueOrFalseQuestions = paper.Questions.Where(q => q.Type == QuestionType.判断题).Select(q => new TrueOrFalseQuestionViewModel
+            {
+                Content = q.Content,
+                IsCorrect = (q as TrueOrFalseQuestion).IsCorrect,
+                Type = QuestionType.判断题
+            }).ToList();
+            model.SingleQuestions = paper.Questions.Where(q => q.Type == QuestionType.单选题).Select(q => new SingleQuestionViewModel
+            {
+                Content = q.Content,
+                Type = QuestionType.单选题,
+                Options = (q as ChoiceQuestion).Options.OrderBy(o => o.OptionId).Select(o => new OptionViewModel { OptionId = o.OptionId, OptionProperty = o.OptionProperty }).ToList(),
+                CorrectAnswer = (int)((q as ChoiceQuestion).Options.Where(o => o.IsCorrect == true).FirstOrDefault().OptionId),
+            }).ToList();
+            model.MultipleQuestions = paper.Questions.Where(q => q.Type == QuestionType.多选题).Select(q => new MultipleQuestionViewModel
+            {
+                Content = q.Content,
+                Type = QuestionType.多选题,
+                Options = (q as ChoiceQuestion).Options.OrderBy(o => o.OptionId).Select(o => new MultipleOptionViewModel { OptionId = o.OptionId, OptionProperty = o.OptionProperty, IsCorrect = o.IsCorrect }).ToList(),
+            }).ToList();
+            return View(model);
         }
         [HttpPost]
         public async Task<ActionResult> Delete(Guid id)

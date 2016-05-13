@@ -11,6 +11,10 @@ namespace Education.ViewModels
     public class PaperViewModel
     {
         public Guid Id { get; set; }
+        [DisplayName("出题人姓名")]
+        public string TeacherName { get; set; }
+        [DisplayName("最近一次修改时间")]
+        public string EditOn { get; set; }
         public List<TrueOrFalseQuestionViewModel> TrueOrFalseQuestions { get; set; }
         public List<SingleQuestionViewModel> SingleQuestions { get; set; }
         public List<MultipleQuestionViewModel> MultipleQuestions { get; set; }
@@ -52,10 +56,10 @@ namespace Education.ViewModels
         {
             Type = QuestionType.单选题;
             Options = new List<OptionViewModel>();
-            Options.Add(new OptionViewModel { OptiondId = OptionType.选项A });
-            Options.Add(new OptionViewModel { OptiondId = OptionType.选项B });
-            Options.Add(new OptionViewModel { OptiondId = OptionType.选项C });
-            Options.Add(new OptionViewModel { OptiondId = OptionType.选项D });
+            Options.Add(new OptionViewModel { OptionId = OptionType.选项A });
+            Options.Add(new OptionViewModel { OptionId = OptionType.选项B });
+            Options.Add(new OptionViewModel { OptionId = OptionType.选项C });
+            Options.Add(new OptionViewModel { OptionId = OptionType.选项D });
         }
     }
     public class MultipleQuestionViewModel : QuestionViewModel
@@ -65,14 +69,14 @@ namespace Education.ViewModels
         {
             Type = QuestionType.多选题;
             Options = new List<MultipleOptionViewModel>();
-            Options.Add(new MultipleOptionViewModel { OptiondId = OptionType.选项A });
+            Options.Add(new MultipleOptionViewModel { OptionId = OptionType.选项A });
         }
     }
 
     public class OptionViewModel
     {
         [DisplayName("选项号")]
-        public OptionType OptiondId { get; set; }
+        public OptionType OptionId { get; set; }
 
         [DisplayName("选项内容")]
         [Required(ErrorMessage = "请输入选项内容！")]
@@ -81,7 +85,7 @@ namespace Education.ViewModels
     public class MultipleOptionViewModel
     {
         [DisplayName("选项号")]
-        public OptionType OptiondId { get; set; }
+        public OptionType OptionId { get; set; }
 
         [DisplayName("选项内容")]
         [Required(ErrorMessage = "请输入选项内容！")]

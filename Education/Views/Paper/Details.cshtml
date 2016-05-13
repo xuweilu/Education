@@ -76,6 +76,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "List")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-sm btn-danger"}) |
+    @Html.ActionLink("Back to List", "List","",new { @class = "btn btn btn-primary"})
 </p>

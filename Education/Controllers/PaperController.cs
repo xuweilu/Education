@@ -16,7 +16,7 @@ namespace Education.Controllers
 {
     public class PaperController : BaseController
     {
-        private const int PageSize = 2;
+        private const int PageSize = 10;
         private IEntityRepository<Paper> repository;
         public PaperController(IEntityRepository<Paper> repository)
         {
@@ -251,44 +251,13 @@ namespace Education.Controllers
             PaperViewModel model = new PaperViewModel();
             model.TeacherName = paper.Teacher.TrueName;
             model.EditOn = paper.EditOn.ToShortDateString();
+            model.Id = id;
             model.TrueOrFalseQuestions = paper.Questions.Where(q => q.Type == QuestionType.判断题).Select(q => new TrueOrFalseQuestionViewModel
             {
                 Content = q.Content,
                 IsCorrect = (q as TrueOrFalseQuestion).IsCorrect,
                 Type = QuestionType.判断题
             }).ToList();
-            #region comment
-            //model.SingleQuestions.Clear();
-            //foreach (var sq in paper.Questions.Where(q => q.Type == QuestionType.单选题))
-            //{
-            //    SingleQuestionViewModel sqView = new SingleQuestionViewModel();
-            //    sqView.Content = sq.Content;
-            //    var a = sq as ChoiceQuestion;
-            //    var b = a.Options.FirstOrDefault(o => o.IsCorrect == true);
-            //    var c = b.OptionId;
-            //    var d = (int)c;
-            //    sqView.CorrectAnswer = (int)((sq as ChoiceQuestion).Options.Where(o => o.IsCorrect == true).FirstOrDefault().OptionId);
-            //    sqView.Type = QuestionType.单选题;
-            //    sqView.Options.Clear();
-            //    foreach(var op in (sq as ChoiceQuestion).Options)
-            //    {
-            //        sqView.Options.Add(new OptionViewModel
-            //        {
-            //            OptionId = op.OptionId,
-            //            OptionProperty = op.OptionProperty
-            //        });
-            //    }
-            //    model.SingleQuestions.Add(sqView);
-
-            //    //model.SingleQuestions.Add(new SingleQuestionViewModel
-            //    //{
-            //    //    Content = sq.Content,
-            //    //    CorrectAnswer = (int)((q as ChoiceQuestion).Options.Where(o => o.IsCorrect == true).FirstOrDefault().OptionId),
-            //    //    Type = QuestionType.单选题,
-            //    //    Options
-            //    //})
-            //}
-            #endregion
             model.SingleQuestions = paper.Questions.Where(q => q.Type == QuestionType.单选题).Select(q => new SingleQuestionViewModel
             {
                 Content = q.Content,

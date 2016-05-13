@@ -10,6 +10,11 @@
 }
 @section scripts {
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script>
+        function DeleteComplete() {
+            window.location.reload();
+        }
+    </script>
 }
 @{
     var ajaxOption = new AjaxOptions()
@@ -17,20 +22,9 @@
         Confirm = "您确定删除么？",
         HttpMethod = "POST",
         OnComplete = "DeleteComplete",
-        //OnSuccess = "DeleteSuccess"
     };
 }
-<script>
-    function DeleteComplete() {
-        window.location.reload();
-    }
-    //function DeleteSuccess() {
-    //    alert("DeleteSuccess!");
-    //}
-</script>
-<p>
-    @Html.ActionLink("添加新试卷", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
@@ -58,7 +52,7 @@
                 </div>
             </td>
             <td>
-                @Html.ActionLink("编辑", "Edit", new { id = item.Id }, new { @class = "btn btn-warning btn-sm"}) |
+                @Html.ActionLink("编辑", "Edit", new { id = item.Id }, new { @class = "btn btn-warning btn-sm" }) |
                 @Ajax.ActionLink("删除", "Delete", new { id = item.Id }, ajaxOption, new { @class = "btn btn-danger btn-sm" })
             </td>
         </tr>
@@ -71,7 +65,9 @@
         @Html.PagedListPager(Model, page => Url.Action("List", new { page }))
     </div>
 </div>
-
+<p>
+    @Html.ActionLink("添加新试卷", "Create", "", new { @class = "btn btn-block btn-success" })
+</p>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

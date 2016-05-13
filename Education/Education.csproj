@@ -199,9 +199,11 @@
     <Compile Include="Concrete\PaginatedList.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ExamsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PaperController.cs" />
+    <Compile Include="Controllers\SheetsController.cs" />
     <Compile Include="DataAccess\EducationMaps.cs" />
     <Compile Include="Extension\ExportModelStateToTempDataAttribute.cs" />
     <Compile Include="Extension\ImportModelStateFromTempDataAttribute.cs" />
@@ -219,6 +221,14 @@
     <Compile Include="Migrations\201605130532401_initial1.cs" />
     <Compile Include="Migrations\201605130532401_initial1.Designer.cs">
       <DependentUpon>201605130532401_initial1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605131613413_add some fields into exam.cs" />
+    <Compile Include="Migrations\201605131613413_add some fields into exam.Designer.cs">
+      <DependentUpon>201605131613413_add some fields into exam.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605131619575_change exam datetime to nullable.cs" />
+    <Compile Include="Migrations\201605131619575_change exam datetime to nullable.Designer.cs">
+      <DependentUpon>201605131619575_change exam datetime to nullable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -308,6 +318,13 @@
     <Content Include="Views\Paper\List.cshtml" />
     <Content Include="Views\Paper\Edit.cshtml" />
     <Content Include="Views\Paper\Details.cshtml" />
+    <Content Include="Views\Exams\Create.cshtml" />
+    <Content Include="Views\Exams\Index.cshtml" />
+    <Content Include="Views\Sheets\Create.cshtml" />
+    <Content Include="Views\Sheets\Delete.cshtml" />
+    <Content Include="Views\Sheets\Details.cshtml" />
+    <Content Include="Views\Sheets\Edit.cshtml" />
+    <Content Include="Views\Sheets\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
@@ -324,6 +341,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605130532401_initial1.resx">
       <DependentUpon>201605130532401_initial1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605131613413_add some fields into exam.resx">
+      <DependentUpon>201605131613413_add some fields into exam.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605131619575_change exam datetime to nullable.resx">
+      <DependentUpon>201605131619575_change exam datetime to nullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

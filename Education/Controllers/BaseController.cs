@@ -11,12 +11,17 @@ namespace Education.Controllers
 {
     public class BaseController : Controller
     {
-        private ApplicationDbContext _db = new ApplicationDbContext();
+        private ApplicationDbContext _db;
         protected ApplicationDbContext DB
         {
             get
             {
-                return _db ?? new ApplicationDbContext();
+                if(_db == null)
+                {
+                    _db = new ApplicationDbContext();
+                    return _db;
+                }
+                return _db;
             }
         }
         private ApplicationUserManager _appUserManager = null;

@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using Education.DataAccess;
+using System.ComponentModel;
 
 namespace Education.Models
 {
@@ -18,6 +19,7 @@ namespace Education.Models
             // 在此处添加自定义用户声明
             return userIdentity;
         }
+        [DisplayName("姓名")]
         public string TrueName { get; set; }
         public Gender Gender { get; set; }
         public DateTime? RegisterOn { get; set; }

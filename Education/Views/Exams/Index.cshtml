@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Education.Models.Exam>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            测试名
+        </th>
+        <th>
+            测试时间
+        </th>
+        <th>
+            测试地点
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExamName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExamOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+    </tr>
+}
+</table>
+<p>
+    @Html.ActionLink("回到试卷", "List", "Paper", "", new { @class = "btn btn-primary btn-sm" })
+</p>

@@ -1,6 +1,7 @@
 ﻿using Education.Abstract;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -13,10 +14,16 @@ namespace Education.Models
     {
         [Key, ForeignKey("Paper")]
         public Guid Id { get; set; }
+
+        [DisplayName("考试时间")]
         public DateTime? ExamOn { get; set; }
 
-        //[ForeignKey("Paper")]
-        //public Guid PaperId { get; set; }
+        [DisplayName("考试地点")]
+        public string Address { get; set; }
+
+        [DisplayName("考试名")]
+        public string ExamName { get; set; }
+
         public virtual Paper Paper { get; set; }
 
         public virtual List<Student> Students { get; set; }
@@ -24,7 +31,7 @@ namespace Education.Models
 
         public Exam()
         {
-            Id = Guid.NewGuid();
+            //Id = Guid.NewGuid();
             Students = new List<Student>();
             Sheets = new List<Sheet>();
         }

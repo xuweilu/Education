@@ -252,6 +252,9 @@ namespace Education.Controllers
         [HttpPost]
         public async Task<ActionResult> Delete(Guid id)
         {
+            var exam = await DB.Exams.FindAsync(id);
+            DB.Exams.Remove(exam);
+            await DB.SaveChangesAsync();
             var paper = await DB.Papers.FirstOrDefaultAsync(p => p.Id == id);
             if (paper == null)
             {

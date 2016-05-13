@@ -236,6 +236,7 @@ namespace Education.Controllers
 
         public async Task<ActionResult> Details(Guid id)
         {
+            //var paper = await DB.Papers.FirstOrDefaultAsync(p => p.Id == id);
             var paper = await DB.Papers.FindAsync(id);
             return View(paper);
         }

@@ -38,7 +38,7 @@ $(document).ready(function () {
     //添加多选题选项
     $('.multiple-option-createbutton').click(function addMultipleOption() {
         var opSum = $(this).closest('.multiple-question').children('.multiple-question-option').size();    //得到当前多选题的地址
-        if (opSum > 24) { alert("错误，不能超过24个选项！") }
+        if (opSum > 25) { alert("错误，不能超过24个选项！") }
         else
         {
             var mqposition = $(this).closest('.multiple-question').attr('id').match(/\d+/)[0];    //得到当前多选题的id，因为得到的是字符串，所以要用[0]得到数字

@@ -19,6 +19,8 @@ namespace Education.Models
         public string TeacherId { get; set; }
         public virtual Teacher Teacher { get; set; }
 
+        //[ForeignKey("Exam")]
+        //public Guid ExamId { get; set; }
         //public virtual Exam Exam { get; set; }
 
         public virtual List<Question> Questions { get; set; }

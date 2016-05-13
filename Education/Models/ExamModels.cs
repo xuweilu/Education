@@ -17,7 +17,6 @@ namespace Education.Models
 
         [ForeignKey("Paper")]
         public Guid PaperId { get; set; }
-        [Required]
         public virtual Paper Paper { get; set; }
 
         public virtual List<Student> Students { get; set; }

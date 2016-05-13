@@ -49,7 +49,6 @@
                         @Html.ValidationMessageFor(model => model.SingleQuestions[i].Content, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                @Html.HiddenFor(model => model.SingleQuestions[i].Options[0].OptionId)
                 <div class="form-group single-question-option">
                     <label class="control-label col-md-2">@Html.DisplayFor(model => model.SingleQuestions[i].Options[0].OptionId)</label>
                     <div class="col-md-8">
@@ -61,7 +60,6 @@
                         @Html.RadioButtonFor(model => model.SingleQuestions[i].CorrectAnswer, 1)
                     </div>
                 </div>
-                @Html.HiddenFor(model => model.SingleQuestions[i].Options[1].OptionId)
                 <div class="form-group single-question-option">
                     <label class="control-label col-md-2">@Html.DisplayFor(model => model.SingleQuestions[i].Options[1].OptionId)</label>
                     <div class="col-md-8">
@@ -73,7 +71,6 @@
                         @Html.RadioButtonFor(model => model.SingleQuestions[i].CorrectAnswer, 2)
                     </div>
                 </div>
-                @Html.HiddenFor(model => model.SingleQuestions[i].Options[2].OptionId)
                 <div class="form-group single-question-option">
                     <label class="control-label col-md-2">@Html.DisplayFor(model => model.SingleQuestions[i].Options[2].OptionId)</label>
                     <div class="col-md-8">
@@ -85,7 +82,6 @@
                         @Html.RadioButtonFor(model => model.SingleQuestions[i].CorrectAnswer, 3)
                     </div>
                 </div>
-                @Html.HiddenFor(model => model.SingleQuestions[i].Options[3].OptionId)
                 <div class="form-group single-question-option">
                     <label class="control-label col-md-2">@Html.DisplayFor(model => model.SingleQuestions[i].Options[3].OptionId)</label>
                     <div class="col-md-8">

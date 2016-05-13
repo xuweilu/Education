@@ -44,6 +44,20 @@ namespace Education.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(PaperViewModel paperInfo)
         {
+            foreach (var item in paperInfo.SingleQuestions)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    item.Options[i].OptionId = (OptionType)(i + 1);
+                }
+            }
+            foreach (var item in paperInfo.MultipleQuestions)
+            {
+                for (int i = 0; i < item.Options.Count; i++)
+                {
+                    item.Options[i].OptionId = (OptionType)(i + 1);
+                }
+            }
             if (ModelState.IsValid)
             {
                 var teacher = GetCurrentUser() as Teacher;

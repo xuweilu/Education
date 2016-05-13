@@ -271,6 +271,7 @@ namespace Education.Controllers
             {
                 return HttpNotFound();
             }
+            paper.Teacher = null;
             DB.Papers.Remove(paper);
             await DB.SaveChangesAsync();
             return new EmptyResult();

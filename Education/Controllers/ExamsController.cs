@@ -36,6 +36,11 @@ namespace Education.Controllers
                 var roleId = (await DB.Roles.FirstOrDefaultAsync(r => r.Name == Role.Student)).Id;
                 var students = DB.Users.Where(u => u.Roles.Select(r => r.RoleId).Contains(roleId));
                 exam.Students = await students.Select(s => s as Student).ToListAsync();
+                foreach(var stu in exam.Students)
+                {
+                    DB.Entry(stu).State = EntityState.Modified;
+                }
+                DB.Entry(exam).State = EntityState.Modified;
                 await DB.SaveChangesAsync();
                 return RedirectToAction("List", "Paper");
             }

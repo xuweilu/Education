@@ -58,6 +58,5 @@ namespace Education.Models
         public DbSet<Option> Options { get; set; }
         public DbSet<Exam> Exams { get; set; }
         public DbSet<Sheet> Sheets { get; set; }
-        public DbSet<Answer> Answers { get; set; }
     }
 }

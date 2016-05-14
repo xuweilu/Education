@@ -24,14 +24,12 @@ namespace Education.Models
         public Paper()
         {
             Id = Guid.NewGuid();
-            Exam = new Exam();
             Questions = new List<Question>();
         }
 
     }
     public abstract class Question : IEntity
     {
-        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public Guid Id { get; set; }
         public QuestionType Type { get; set; }
@@ -40,12 +38,10 @@ namespace Education.Models
         [ForeignKey("Paper")]
         public Guid PaperId { get; set; }
         public virtual Paper Paper { get; set; }
-        
-        public virtual List<Answer> Answers { get; set; }
+
         public Question()
         {
             Id = Guid.NewGuid();
-            Answers = new List<Answer>();
         }
     }
     public class TrueOrFalseQuestion : Question
@@ -68,7 +64,6 @@ namespace Education.Models
     }
     public class Option : IEntity
     {
-        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public Guid Id { get; set; }
 

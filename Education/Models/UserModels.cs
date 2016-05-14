@@ -17,12 +17,10 @@ namespace Education.Models
     {
         public virtual List<Exam> Exams { get; set; }
         public virtual List<Sheet> Sheets { get; set; }
-        public virtual List<Answer> Answers { get; set; }
         public Student()
         {
             Exams = new List<Exam>();
             Sheets = new List<Sheet>();
-            Answers = new List<Answer>();
         }
     }
     public class Administrator : ApplicationUser

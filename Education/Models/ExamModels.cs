@@ -37,13 +37,17 @@ namespace Education.Models
         }
     }
 
-    //答卷，一张答卷对应一场考试，由一个学生完成，有一个分数，同时有很多回答
+    //答卷，一张答卷对应一场考试，由一个学生完成，有一个回答记录
     public class Sheet : IEntity
     {
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public Guid Id { get; set; }
+
+        [DisplayName("成绩")]
         public double Score { get; set; }
+
+        [DisplayName("考试时间")]
         public DateTime? AnswerOn { get; set; }
 
         [ForeignKey("Student")]
@@ -54,50 +58,10 @@ namespace Education.Models
         public Guid ExamId { get; set; }
         public virtual Exam Exam { get; set; }
 
-        public virtual List<Answer> Answers { get; set; }
+        public virtual Paper AnswerSheet { get; set; }
         public Sheet()
         {
             Id = Guid.NewGuid();
-            Answers = new List<Answer>();
         }
-    }
-
-    //一个回答属于一张答卷，由一个学生完成，对应一个题目
-    public abstract class Answer : IEntity
-    {
-        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key]
-        public Guid Id { get; set; }
-
-        [ForeignKey("Sheet")]
-        public Guid SheetId { get; set; }
-        public virtual Sheet Sheet { get; set; }
-
-        [ForeignKey("Student")]
-        public string StudentId { get; set; }
-        public virtual Student Student { get; set; }
-
-        [ForeignKey("Question")]
-        public Guid QuestionId { get; set; }
-        public virtual Question Question { get; set; }
-        public Answer()
-        {
-            Id = Guid.NewGuid();
-        }
-    }
-    public class TrueOrFalseAnswer : Answer
-    {
-        [Column("TrueOrFalseAnswer")]
-        public bool? Answer { get; set; }
-    }
-    public class SingleAnswer : Answer
-    {
-        [Column("SingleAnswer")]
-        public OptionType? Answer { get; set; }
-    }
-    public class MultipleAnswer : Answer
-    {
-        [Column("MultipleAnswer")]
-        public string Answer { get; set; }
     }
 }

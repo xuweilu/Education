@@ -41,9 +41,6 @@ namespace Education.Infrastructure
             ninjectKernel.Bind<IEntityRepository<TrueOrFalseQuestion>>().To<EntityRepository<TrueOrFalseQuestion>>();
             ninjectKernel.Bind<IEntityRepository<Option>>().To<EntityRepository<Option>>();
             ninjectKernel.Bind<IEntityRepository<Exam>>().To<EntityRepository<Exam>>();
-            ninjectKernel.Bind<IEntityRepository<SingleAnswer>>().To<EntityRepository<SingleAnswer>>();
-            ninjectKernel.Bind<IEntityRepository<MultipleAnswer>>().To<EntityRepository<MultipleAnswer>>();
-            ninjectKernel.Bind<IEntityRepository<TrueOrFalseAnswer>>().To<EntityRepository<TrueOrFalseAnswer>>();
         }
     }
 }

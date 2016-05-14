@@ -62,6 +62,7 @@ namespace Education.Controllers
             {
                 var teacher = GetCurrentUser() as Teacher;
                 Paper paper = new Paper();
+                paper.Exam = new Exam();
                 paper.EditOn = DateTime.Now;
                 paper.Teacher = teacher;
                 var trueOrFalseQuestionList = new List<TrueOrFalseQuestion>();

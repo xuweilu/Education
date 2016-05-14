@@ -42,6 +42,7 @@ namespace Education.ViewModels
     public class TrueOrFalseQuestionViewModel : QuestionViewModel
     {
         [DisplayName("是否正确？")]
+        [Required(ErrorMessage ="请选择是否正确")]
         public bool IsCorrect { get; set; }
         public TrueOrFalseQuestionViewModel()
         {
@@ -51,6 +52,7 @@ namespace Education.ViewModels
     public class SingleQuestionViewModel : QuestionViewModel
     {
         public List<OptionViewModel> Options { get; set; }
+        [Required(ErrorMessage = "请选择一个正确选项")]
         public int CorrectAnswer { get; set; }
         public SingleQuestionViewModel()
         {

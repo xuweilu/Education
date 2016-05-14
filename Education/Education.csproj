@@ -234,6 +234,10 @@
     <Compile Include="Migrations\201605141729295_delete answers.Designer.cs">
       <DependentUpon>201605141729295_delete answers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605141853025_add answer.cs" />
+    <Compile Include="Migrations\201605141853025_add answer.Designer.cs">
+      <DependentUpon>201605141853025_add answer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ExamModels.cs" />
@@ -244,6 +248,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\PaperViewModels.cs" />
+    <Compile Include="ViewModels\SheetViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -325,10 +330,7 @@
     <Content Include="Views\Exams\Create.cshtml" />
     <Content Include="Views\Exams\Index.cshtml" />
     <Content Include="Views\Sheets\Create.cshtml" />
-    <Content Include="Views\Sheets\Delete.cshtml" />
-    <Content Include="Views\Sheets\Details.cshtml" />
-    <Content Include="Views\Sheets\Edit.cshtml" />
-    <Content Include="Views\Sheets\Index.cshtml" />
+    <Content Include="Views\Sheets\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
@@ -354,6 +356,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605141729295_delete answers.resx">
       <DependentUpon>201605141729295_delete answers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605141853025_add answer.resx">
+      <DependentUpon>201605141853025_add answer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -39,6 +39,7 @@ namespace Education.Models
         public Guid PaperId { get; set; }
         public virtual Paper Paper { get; set; }
 
+        public virtual List<Answer> Answers { get; set; }
         public Question()
         {
             Id = Guid.NewGuid();

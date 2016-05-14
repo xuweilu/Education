@@ -27,6 +27,7 @@ namespace Education.Models
         public virtual Paper Paper { get; set; }
 
         public virtual List<Student> Students { get; set; }
+
         public virtual List<Sheet> Sheets { get; set; }
 
         public Exam()
@@ -58,8 +59,28 @@ namespace Education.Models
         public Guid ExamId { get; set; }
         public virtual Exam Exam { get; set; }
 
-        public virtual Paper AnswerSheet { get; set; }
+        public virtual List<Answer> Answers { get; set; }
         public Sheet()
+        {
+            Id = Guid.NewGuid();
+            Answers = new List<Answer>();
+        }
+    }
+    public class Answer
+    {
+        public Guid Id { get; set; }
+        public QuestionType AnswerType { get; set; }
+
+        [ForeignKey("Sheet")]
+        public Guid SheetId { get; set; }
+        public virtual Sheet Sheet { get; set; }
+
+        [ForeignKey("Question")]
+        public Guid QuestionId { get; set; }
+        public virtual Question Question { get; set; }
+
+        public string Content { get; set; }
+        public Answer()
         {
             Id = Guid.NewGuid();
         }

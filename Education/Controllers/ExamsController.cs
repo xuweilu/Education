@@ -33,6 +33,9 @@ namespace Education.Controllers
             var exam = await DB.Exams.FirstOrDefaultAsync(e => e.Id == id);
             if (ModelState.IsValid && TryUpdateModel(exam, "", collection.AllKeys))
             {
+                var roleId = (await DB.Roles.FirstOrDefaultAsync(r => r.Name == Role.Student)).Id;
+                var students = DB.Users.Where(u => u.Roles.Select(r => r.RoleId).Contains(roleId));
+                exam.Students = await students.Select(s => s as Student).ToListAsync();
                 await DB.SaveChangesAsync();
                 return RedirectToAction("List", "Paper");
             }

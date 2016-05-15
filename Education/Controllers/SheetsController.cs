@@ -14,7 +14,9 @@ namespace Education.Controllers
 {
     public class SheetsController : BaseController
     {
-        private const double Point = 3;
+        private const double tqPoint = 1;
+        private const double sqPoint = 1;
+        private const double mqPoint = 1;
         public ActionResult List()
         {
             var stu = GetCurrentUser() as Student;
@@ -24,7 +26,7 @@ namespace Education.Controllers
         // GET: Sheets/Create
         public async Task<ActionResult> Create(Guid id)
         {
-            var currentStudent =(await GetCurrentUserAsync()) as Student;
+            var currentStudent = (await GetCurrentUserAsync()) as Student;
             var currentExam = await DB.Exams.FirstOrDefaultAsync(e => e.Id == id);
             var currentPaper = currentExam.Paper;
             SheetViewModel model = new SheetViewModel();
@@ -77,7 +79,10 @@ namespace Education.Controllers
                 sheet.Student = (GetCurrentUser()) as Student;
                 sheet.ExamId = model.Id;
                 double score = 0;
-                foreach(var questioninfo in model.TrueOrFalseQuestions)
+                int rightTqCount = 0;
+                int rightSqCount = 0;
+                int rightmqCount = 0;
+                foreach (var questioninfo in model.TrueOrFalseQuestions)
                 {
                     sheet.Answers.Add(new Answer
                     {
@@ -85,11 +90,11 @@ namespace Education.Controllers
                         QuestionId = questioninfo.Id,
                         Content = questioninfo.IsCorrect.ToString()
                     });
-                    //var rightAnswer = ((await DB.Questions.FirstOrDefaultAsync(q => q.Id == questioninfo.Id)) as TrueOrFalseQuestion).IsCorrect;
-                    //if (questioninfo.IsCorrect == rightAnswer)
-                    //    score++;
+                    var rightAnswer = ((await DB.Questions.FirstOrDefaultAsync(q => q.Id == questioninfo.Id)) as TrueOrFalseQuestion).IsCorrect;
+                    if (questioninfo.IsCorrect == rightAnswer)
+                        rightTqCount++;
                 }
-                foreach(var questioninfo in model.SingleQuestions)
+                foreach (var questioninfo in model.SingleQuestions)
                 {
                     sheet.Answers.Add(new Answer
                     {
@@ -97,11 +102,11 @@ namespace Education.Controllers
                         QuestionId = questioninfo.Id,
                         Content = questioninfo.CorrectAnswer.ToString(),
                     });
-                    //var rightAnswer =(int)((await DB.Questions.FirstOrDefaultAsync(q => q.Id == questioninfo.Id)) as ChoiceQuestion).Options.Where(o => o.IsCorrect == true).FirstOrDefault().OptionId;
-                    //if (questioninfo.CorrectAnswer == rightAnswer)
-                    //    score++;
+                    var rightAnswer = (int)((await DB.Questions.FirstOrDefaultAsync(q => q.Id == questioninfo.Id)) as ChoiceQuestion).Options.Where(o => o.IsCorrect == true).FirstOrDefault().OptionId;
+                    if (questioninfo.CorrectAnswer == rightAnswer)
+                        rightSqCount++;
                 }
-                foreach(var questioninfo in model.MultipleQuestions)
+                foreach (var questioninfo in model.MultipleQuestions)
                 {
                     sheet.Answers.Add(new Answer
                     {
@@ -109,20 +114,52 @@ namespace Education.Controllers
                         QuestionId = questioninfo.Id,
                         Content = string.Join(",", questioninfo.Options.Where(o => o.IsCorrect == true).Select(o => o.OptionId))
                     });
-                    //var rightOptions = (await DB.Questions.FirstOrDefaultAsync(q => q.Id == questioninfo.Id) as ChoiceQuestion).Options.Where(o => o.IsCorrect == true).ToList();
-                    //var selectedOptions = questioninfo.Options.Where(o => o.IsCorrect == true).ToList();
-                    //if(rightOptions == selectedOptions)
-                    //{
-                    //    score++;
-                    //}
+                    var rightOptions = (await DB.Questions.FirstOrDefaultAsync(q => q.Id == questioninfo.Id) as ChoiceQuestion).Options.Where(o => o.IsCorrect == true).OrderBy(o => o.OptionId).ToList();
+                    var selectedOptions = questioninfo.Options.Where(o => o.IsCorrect == true).OrderBy(o => o.OptionId).ToList();
+                    bool answerRight = true;
+                    for (int i = 0; i < selectedOptions.Count; i++)
+                    {
+                        if (selectedOptions[i].OptionId != rightOptions[i].OptionId)
+                        {
+                            answerRight = false;
+                        }
+                    }
+                    if (answerRight)
+                    {
+                        rightmqCount++;
+                    }
                 }
+                score = rightTqCount * tqPoint + rightSqCount * sqPoint + rightmqCount * mqPoint;
+                sheet.Score = score;
                 DB.Sheets.Add(sheet);
                 await DB.SaveChangesAsync();
-                return RedirectToAction("Index","Home");
+                var rightQuestionsCount = rightTqCount + rightSqCount + rightmqCount;
+                var totalQuestionsCount = model.MultipleQuestions.Count + model.SingleQuestions.Count + model.MultipleQuestions.Count;
+                double grade = rightQuestionsCount / totalQuestionsCount;
+                string comment = "";
+                if (grade < 0.6)
+                {
+                    comment = "答来答去的答案都图样！爱慕安规！";
+                }
+                else if (grade >= 0.6 && grade < 0.8)
+                {
+                    comment = "还要继续学习一个！";
+                }
+                else
+                {
+                    comment = "跟美国的华莱士一样不知道高到哪里去了！";
+                }
+                var mark = new MarkViewModel();
+                mark.Comment = comment;
+                mark.Grade = grade.ToString();
+                return RedirectToAction("Score", "", mark);
             }
             return View(model);
         }
-
+        public ActionResult Score(MarkViewModel mark)
+        {
+            return View(mark);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

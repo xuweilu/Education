@@ -247,6 +247,7 @@
     <Compile Include="Models\UserModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\MarkViewModels.cs" />
     <Compile Include="ViewModels\PaperViewModels.cs" />
     <Compile Include="ViewModels\SheetViewModels.cs" />
   </ItemGroup>
@@ -335,6 +336,7 @@
     <Content Include="Views\Exams\Index.cshtml" />
     <Content Include="Views\Sheets\Create.cshtml" />
     <Content Include="Views\Sheets\List.cshtml" />
+    <Content Include="Views\Sheets\Score.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

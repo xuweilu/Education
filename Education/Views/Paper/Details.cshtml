@@ -2,7 +2,7 @@
 
 @{
     Layout = null;
-    ViewBag.Title = "Detail";
+    ViewBag.Title = "详细";
 }
 <h1>@ViewBag.Title</h1>
 <h3>出题人:@Html.DisplayFor(model => model.TeacherName)</h3>
@@ -76,6 +76,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-sm btn-danger"}) |
-    @Html.ActionLink("Back to List", "List","",new { @class = "btn btn btn-primary"})
+    @Html.ActionLink("编辑", "Edit", new { id = Model.Id }, new { @class = "btn btn-sm btn-danger"}) |
+    @Html.ActionLink("返回到试卷列表", "List","",new { @class = "btn btn btn-primary"})
 </p>

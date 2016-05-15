@@ -6,11 +6,28 @@ using System.Web.Mvc;
 
 namespace Education.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                if (IsStudent())
+                {
+                     return RedirectToAction("List", "Sheets");
+
+                }
+                else if (IsTeacher())
+                {
+                    return RedirectToAction("List", "Paper");
+                }
+                else
+                {
+                    return View();
+                }
+            }
+            else
+                return View();
         }
 
         public ActionResult About()
@@ -22,7 +39,7 @@ namespace Education.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "联系方式";
+            ViewBag.Message = "我的联系方式";
 
             return View();
         }

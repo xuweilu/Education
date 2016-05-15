@@ -91,9 +91,9 @@
                     <div class="col-md-2">
                         该选项是否正确？
                         @Html.RadioButtonFor(model => model.SingleQuestions[i].CorrectAnswer, 4)
+                        @Html.ValidationMessageFor(model => model.SingleQuestions[i].CorrectAnswer, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                @Html.ValidationMessageFor(model => model.SingleQuestions[i].CorrectAnswer, "", new { @class = "text-danger" })
             </div>
         }
         <h4>多选题</h4>

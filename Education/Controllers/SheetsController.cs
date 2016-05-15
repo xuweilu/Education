@@ -20,7 +20,7 @@ namespace Education.Controllers
         public ActionResult List()
         {
             var stu = GetCurrentUser() as Student;
-            var model = stu.Exams.ToList();
+            var model = stu.Exams ?? new List<Exam>();
             return View(model);
         }
         // GET: Sheets/Create
@@ -135,7 +135,7 @@ namespace Education.Controllers
                 await DB.SaveChangesAsync();
                 var rightQuestionsCount = rightTqCount + rightSqCount + rightmqCount;
                 var totalQuestionsCount = model.MultipleQuestions.Count + model.SingleQuestions.Count + model.MultipleQuestions.Count;
-                double grade = rightQuestionsCount / totalQuestionsCount;
+                double grade = rightQuestionsCount/(double)totalQuestionsCount;
                 string comment = "";
                 if (grade < 0.6)
                 {
@@ -151,8 +151,8 @@ namespace Education.Controllers
                 }
                 var mark = new MarkViewModel();
                 mark.Comment = comment;
-                mark.Grade = grade.ToString();
-                return RedirectToAction("Score", "", mark);
+                mark.Grade = ((int)(grade*100)).ToString();
+                return RedirectToAction("Score","Sheets", mark);
             }
             return View(model);
         }

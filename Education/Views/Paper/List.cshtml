@@ -55,8 +55,7 @@
                 @Html.ActionLink("编辑", "Edit", new { id = item.Id }, new { @class = "btn btn-warning btn-sm" }) |
                 @Ajax.ActionLink("删除", "Delete", new { id = item.Id }, ajaxOption, new { @class = "btn btn-danger btn-sm" }) |
                 @Html.ActionLink("创建或编辑测试","Create","Exams", new { id = item.Id}, new { @class = "btn btn-success btn-sm"}) |
-                @Html.ActionLink("查看测试列表", "Index", "Exams", new { id = item.Id }, new { @class = "btn btn-info btn-sm" }) |
-
+                @Html.ActionLink("查看测试列表", "Index", "Exams", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
             </td>
         </tr>
     }

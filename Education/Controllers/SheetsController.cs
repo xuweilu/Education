@@ -12,6 +12,7 @@ using Education.ViewModels;
 
 namespace Education.Controllers
 {
+    [Authorize(Roles = Role.Student)]
     public class SheetsController : BaseController
     {
         private const double tqPoint = 1;

@@ -14,6 +14,7 @@ using System.Data.Entity;
 
 namespace Education.Controllers
 {
+    [Authorize(Roles = Role.Teacher)]
     public class PaperController : BaseController
     {
         private const int PageSize = 10;

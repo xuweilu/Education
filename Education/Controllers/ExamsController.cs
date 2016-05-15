@@ -11,6 +11,7 @@ using Education.Models;
 
 namespace Education.Controllers
 {
+    [Authorize(Roles = Role.Teacher)]
     public class ExamsController : BaseController
     {
         // GET: Exams

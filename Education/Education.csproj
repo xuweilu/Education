@@ -251,6 +251,10 @@
     <Compile Include="ViewModels\SheetViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-flat-extras.css" />
+    <Content Include="Content\bootstrap-flat-extras.min.css" />
+    <Content Include="Content\bootstrap-flat.css" />
+    <Content Include="Content\bootstrap-flat.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />

@@ -15,14 +15,14 @@ namespace Education.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "课程平台是本人使用ASP .NET MVC平台编写的毕业设计";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "联系方式";
 
             return View();
         }

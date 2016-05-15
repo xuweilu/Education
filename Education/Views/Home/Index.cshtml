@@ -1,31 +1,42 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "主页";
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>课程平台</h1>
+    <p class="lead">课程平台是一个智能化的课堂练习平台</p>
+    <p><a href="@Url.Action("Login","Account")" class="btn btn-primary btn-lg">现在开始 &raquo;</a></p>
 </div>
 
 <div class="row">
     <div class="col-md-4">
-        <h2>Getting started</h2>
+        <h2>开始 Start</h2>
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            课程平台提供了一个智能化的课堂练习平台，让教师们出题考核更方便，让同学们答题更轻松。
         </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        <p>
+            The education platform gives you a powerful, intelligent and lightening application to make teachers set questions more conveniently and students answer questions eaiser.
+        </p>
+        <p><a class="btn btn-default" href="@Url.Action("Login","Account")">了解更多 &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        <h2>作为老师 For teachers</h2>
+        <p>
+            作为老师：你可以动态添加试卷、试卷中的题目和题目选项，对试卷进行增删改查，为试卷添加测试，并对对测试时间和地点进行安排。
+        </p>
+        <p>
+            As a teacher: you can create exam papers, questions in papers, options in questions dynamically, apply Create, Read, Edit, Read manipulation to the paper, add examinations for the papers, and arrange time and address for the examinations.
+        </p>
+        <p><a class="btn btn-default" href="@Url.Action("Login","Account")">了解更多 &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <h2>作为学生 For students</h2>
+        <p>
+            作为学生：你可以自由选择所有你应当回答的试卷，并在被允许的情况下对重考，你的所有答案都将被记录，方便以后的查阅。
+        </p>
+        <p>
+            As a student: you can choose your papers freely, and resit the exam with authorization, all your answers will be recorded in case consult later.
+        </p>
+        <p><a class="btn btn-default" href="@Url.Action("Login","Account")">了解更多 &raquo;</a></p>
     </div>
 </div>

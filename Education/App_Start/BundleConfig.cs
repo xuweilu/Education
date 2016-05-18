@@ -25,8 +25,9 @@ namespace Education
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/bootstrap-flat.css",
                       "~/Content/bootstrap-theme.css",
+                      "~/Content/bootstrap-flat.css",
+                      "~/Content/bootstrap-flat-extras.css",
                       "~/Content/site.css"));
         }
     }

@@ -24,11 +24,6 @@ namespace Education.Concrete
             }
             _entitiesContext = entitiesContext;
         }
-
-        //public EntityRepository()
-        //{
-        //}
-
         public virtual IQueryable<T> GetAll()
         {
             return _entitiesContext.Set<T>();
@@ -43,13 +38,10 @@ namespace Education.Concrete
             }
             return query;
         }
-
         public T GetSingle(Guid id)
         {
             return GetAll().FirstOrDefault(x => x.Id == id);
         }
-
-
         public async Task<T> GetSingleAsync(Guid id)
         {
             return await GetAll().FirstOrDefaultAsync(x => x.Id == id);
@@ -58,12 +50,10 @@ namespace Education.Concrete
         {
             return _entitiesContext.Set<T>().Where(predicate);
         }
-
         public PaginatedList<T> Paginate<TKey>(int pageIndex, int pageSize, Expression<Func<T, TKey>> keySelector)
         {
             return Paginate(pageIndex, pageSize, keySelector, null);
         }
-
         public PaginatedList<T> Paginate<TKey>(int pageIndex, int pageSize, Expression<Func<T, TKey>> keySelector, Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties)
         {
             IQueryable<T> query = AllIncluding(includeProperties).OrderBy(keySelector);
@@ -72,32 +62,27 @@ namespace Education.Concrete
                 : query.Where(predicate);
             return query.ToPaginatedList(pageIndex, pageSize);
         }
-
         public void Add(T entity)
         {
             DbEntityEntry dbEntityEntry = _entitiesContext.Entry<T>(entity);
             _entitiesContext.Set<T>().Add(entity);
         }
-
         public void Edit(T entity)
         {
             DbEntityEntry dbEntityEntry = _entitiesContext.Entry<T>(entity);
             dbEntityEntry.State = EntityState.Modified;
         }
-
         public void Delete(T entity)
         {
             DbEntityEntry dbEntityEntry = _entitiesContext.Entry<T>(entity);
             dbEntityEntry.State = EntityState.Deleted;
         }
-
         public void DeleteGraph(T entity)
         {
             DbSet<T> dbSet = _entitiesContext.Set<T>();
             dbSet.Attach(entity);
             dbSet.Remove(entity);
         }
-
         public void Save()
         {
             _entitiesContext.SaveChanges();

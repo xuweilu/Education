@@ -18,7 +18,6 @@ namespace Education.Infrastructure
         {
             ninjectKernel = new StandardKernel();
             AddBindings();
-
         }
         protected override IController GetControllerInstance(RequestContext requestContext, Type controllerType)
         {

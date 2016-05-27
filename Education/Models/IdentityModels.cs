@@ -41,7 +41,6 @@ namespace Education.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
-
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
@@ -51,5 +50,6 @@ namespace Education.Models
         public DbSet<Option> Options { get; set; }
         public DbSet<Exam> Exams { get; set; }
         public DbSet<Sheet> Sheets { get; set; }
+        public DbSet<Answer> Answers { get; set; }
     }
 }
